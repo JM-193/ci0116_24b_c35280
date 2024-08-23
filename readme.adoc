@@ -1,0 +1,10 @@
+= Análisis de Algoritmos y Estructuras de Datos - CI-0116
+:author: José_Manuel Mora Zúñiga
+:email: jose.morazuniga@ucr.ac.cr
+:nofooter:
+:sectnums:
+:stem: latexmath
+:toc:
+:toclevels: 5
+:toc-title: Index
+
