@@ -47,7 +47,20 @@ class Ordenador {
       }
     }
 
-    void ordenamientoPorInsercion(int *A, int n) const {}
+    void ordenamientoPorInsercion(int *A, int n) const {
+      for (int i = 1; i < n; ++i) {
+        int key = A[i];
+        // Insertar A[i] en el sub-arreglo ordenado A[0:i-1]
+        int j = i - 1;
+        while (j >= 0 && A[j] > key) {
+          A[j + 1] = A[j];
+          j = j - 1;
+        }
+        // Insertar key.
+        A[j + 1] = key;
+      }
+    }
+
     void ordenamientoPorMezcla(int *A, int n) const {}
     void ordenamientoPorMonticulos(int *A, int n) const {}
     void ordenamientoRapido(int *A, int n) const {}
