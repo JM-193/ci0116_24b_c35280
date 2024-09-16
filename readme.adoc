@@ -10,6 +10,6 @@
 
 Repo para el curso.
 
-{author}
-C35280
+{author} +
+C35280 +
 {email}
