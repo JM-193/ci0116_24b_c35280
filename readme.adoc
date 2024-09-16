@@ -8,3 +8,8 @@
 :toclevels: 5
 :toc-title: Index
 
+Repo para el curso.
+
+{author}
+C35280
+{email}
