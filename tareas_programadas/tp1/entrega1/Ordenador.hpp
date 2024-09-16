@@ -8,6 +8,8 @@ class Ordenador {
     /* Defina aquí los métodos auxiliares de los
        algoritmos de ordenamiento solamente. */
     // Puede definir cuantos métodos quiera.
+
+    // TODO(jm): doc
     void mergeSort(int* A, int first, int last) const {
       // Revisar si el arreglo solo tiene un elemento o está vacío.
       if (first >= last) { return; }
@@ -20,6 +22,7 @@ class Ordenador {
       merge(A, first, mid, last);
     }
 
+    // TODO(jm): doc
     void merge(int* A, int first, int mid, int last) const {
       // Calcular las longitudes de los dos arreglos.
       int leftLen = mid - first + 1;
@@ -79,6 +82,7 @@ class Ordenador {
        y que no cause la caída del programa.
     */
 
+    // TODO(jm): doc
     void ordenamientoPorSeleccion(int *A, int n) const {
       for (int i = 0; i < n - 1; ++i) {
         // Seleccionar el elemento más pequeño en A[i:n]
@@ -96,6 +100,7 @@ class Ordenador {
       }
     }
 
+    // TODO(jm): doc
     void ordenamientoPorInsercion(int *A, int n) const {
       for (int i = 1; i < n; ++i) {
         int key = A[i];
@@ -110,6 +115,7 @@ class Ordenador {
       }
     }
 
+    // TODO(jm): doc
     void ordenamientoPorMezcla(int *A, int n) const {
       this->mergeSort(A, 1, n);
     }
