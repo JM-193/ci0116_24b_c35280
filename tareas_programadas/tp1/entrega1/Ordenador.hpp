@@ -1,8 +1,5 @@
 #pragma once
 
-#include <algorithm>
-#include <cmath>
-
 class Ordenador {
     private:
     /* Defina aquí los métodos auxiliares de los
@@ -14,7 +11,7 @@ class Ordenador {
       // Revisar si el arreglo solo tiene un elemento o está vacío.
       if (first >= last) { return; }
 
-      int mid = std::floor(static_cast<double>(first + last) / 2.0);
+      int mid = (first + last) / 2;
       // Ordenar cada mitad
       this->mergeSort(A, first, mid);
       this->mergeSort(A, mid + 1, last);
@@ -95,7 +92,9 @@ class Ordenador {
         }
         // Intercambiar A[i] con el A[min] resultante.
         if (min != i) {
-          std::swap(A[min], A[i]);
+          int temp = A[min];
+          A[min] = A[i];
+          A[i] = temp;
         }
       }
     }
