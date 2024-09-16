@@ -1,9 +1,11 @@
 #pragma once
 
+#include <algorithm>
+
 class Ordenador {
     private:
-    // Defina aquí los métodos auxiliares de los algoritmos de ordenamiento
-    // solamente.
+    /* Defina aquí los métodos auxiliares de los
+       algoritmos de ordenamiento solamente. */
     // Puede definir cuantos métodos quiera.
 
     public:
@@ -27,12 +29,29 @@ class Ordenador {
        Ante un error, basta con que el método no modifique el arreglo original
        y que no cause la caída del programa.
     */
-    void ordenamientoPorSeleccion(int *A, int n) const;
-    void ordenamientoPorInsercion(int *A, int n) const;
-    void ordenamientoPorMezcla(int *A, int n) const;
-    void ordenamientoPorMonticulos(int *A, int n) const;
-    void ordenamientoRapido(int *A, int n) const;
-    void ordenamientoPorRadix(int *A, int n) const;
+
+    void ordenamientoPorSeleccion(int *A, int n) const {
+      for (int i = 0; i < n - 1; ++i) {
+        // Seleccionar el elemento más pequeño en A[i:n]
+        int min = i;
+        for (int j = i + 1; j < n; ++j) {
+          if (A[j] < A[min]) {
+            // Guardar el índice en m.
+            min = j;
+          }
+        }
+        // Intercambiar A[i] con el A[min] resultante.
+        if (min != i) {
+          std::swap(A[min], A[i]);
+        }
+      }
+    }
+
+    void ordenamientoPorInsercion(int *A, int n) const {}
+    void ordenamientoPorMezcla(int *A, int n) const {}
+    void ordenamientoPorMonticulos(int *A, int n) const {}
+    void ordenamientoRapido(int *A, int n) const {}
+    void ordenamientoPorRadix(int *A, int n) const {}
 
     /**
      * @brief Retorna un std::string con los datos de la tarea.
