@@ -119,9 +119,9 @@ class Ordenador {
       this->mergeSort(A, 1, n);
     }
 
-    void ordenamientoPorMonticulos(int *A, int n) const {}
-    void ordenamientoRapido(int *A, int n) const {}
-    void ordenamientoPorRadix(int *A, int n) const {}
+    // void ordenamientoPorMonticulos(int *A, int n) const {}
+    // void ordenamientoRapido(int *A, int n) const {}
+    // void ordenamientoPorRadix(int *A, int n) const {}
 
     /**
      * @brief Retorna un std::string con los datos de la tarea.
@@ -132,16 +132,6 @@ class Ordenador {
      * @return std::string Una cadena de texto con los datos de la tarea.
      */
     constexpr const char* datosDeTarea() const {
-      return "Carné: 12345, Nombre: AA, Tarea 1";
-    }
-
-    /**
-     * @brief Retorna el string solicitado con los datos del estudiante y
-     * la tarea.
-     *
-     * @return constexpr const char* String con los datos solicitados.
-     */
-    constexpr const char* ImprimirDatosDeTarea() const {
       return "Carné: C35280, Nombre: José Manuel Mora Z, Tarea 1 Etapa 1";
     }
 };

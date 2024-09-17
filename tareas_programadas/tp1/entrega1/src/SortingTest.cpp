@@ -1,6 +1,8 @@
 // Copyright <year> <You>
 #include <iostream>
 
+#include "Ordenador.hpp"
+
 /**
  * @brief Start program execution.
  *
@@ -11,5 +13,6 @@ int main() {
   // input and output. Solve the problem by creating an algorithm, and test it.
   // Copy the algorithm within source code comments. Finally implement the
   // algorithm's instructions in the C applying good programming practices.
-  std::cout << "Hi" << std::endl;
+  Ordenador Test = Ordenador();
+
 }
