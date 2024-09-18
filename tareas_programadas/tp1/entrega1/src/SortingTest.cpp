@@ -22,8 +22,8 @@ void generateRandomArray(std::vector<int>& arr, std::size_t arr_len,
     Test.sort_func(arr_cpy.data(), arr_len); \
     auto endTime = std::chrono::high_resolution_clock::now(); \
     std::chrono::duration<double, std::milli> duration = endTime - startTime; \
-    std::cout << i << ". " << sort_name << ":\t" << duration.count() << "ms" \
-              << std::endl; \
+    std::cout << i + 1 << ". " << sort_name << ":\t" << duration.count() \
+              << "ms" << std::endl; \
   }
 
 /**
@@ -43,6 +43,7 @@ int main(int argc, char* argv[]) {
 
   // Obtain array length.
   const std::size_t arr_len = std::strtoull(argv[1], nullptr, 10);
+  std::cout << std::endl << "Array Length: " << arr_len << std::endl;
 
   // Declare array.
   std::vector<int> arr(arr_len);

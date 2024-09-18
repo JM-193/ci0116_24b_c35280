@@ -1,6 +1,11 @@
 // Copyright 2024 Jose Manuel Mora Z
 #pragma once
 
+#define SWAP_INT(one, two) \
+  int temp = one; \
+  one = two; \
+  two = temp;
+
 class Ordenador {
  private:
   /* Defina aquí los métodos auxiliares de los
@@ -98,9 +103,7 @@ class Ordenador {
       }
       // Intercambiar A[i] con el A[min] resultante.
       if (min != i) {
-        int temp = A[min];
-        A[min] = A[i];
-        A[i] = temp;
+        SWAP_INT(A[min], A[i])
       }
     }
   }
