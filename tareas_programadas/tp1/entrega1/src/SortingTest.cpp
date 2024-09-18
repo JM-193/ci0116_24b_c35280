@@ -5,9 +5,26 @@
 #include <limits>
 #include <random>
 #include <string>
+#include <vector>
 
-#include "SortingTest.hpp"
 #include "Ordenador.hpp"
+
+// TODO(jm): doc
+void generateRandomArray(std::vector<int>& arr, std::size_t arr_len,
+    int min, int max);
+
+// TODO(jm): doc
+#define TEST_SORT(sort_func, sort_name) \
+  std::cout << std::endl; \
+  for (std::size_t i = 0; i < 3; ++i) { \
+    std::copy(arr.begin(), arr.end(), arr_cpy.begin()); \
+    auto startTime = std::chrono::high_resolution_clock::now(); \
+    Test.sort_func(arr_cpy.data(), arr_len); \
+    auto endTime = std::chrono::high_resolution_clock::now(); \
+    std::chrono::duration<double, std::milli> duration = endTime - startTime; \
+    std::cout << i << ". " << sort_name << ":\t" << duration.count() << "ms" \
+              << std::endl; \
+  }
 
 /**
  * @brief Start program execution.
@@ -37,22 +54,16 @@ int main(int argc, char* argv[]) {
   std::vector<int> arr_cpy(arr_len);
 
   // Insertion Sort.
-  for (std::size_t i = 0; i < 3; ++i) {
-    std::copy(arr.begin(), arr.end(), arr_cpy.begin());
-    Test.ordenamientoPorInsercion(arr_cpy.data(), arr_len);
-  }
+  TEST_SORT(ordenamientoPorInsercion, "Insertion")
 
   // Selection Sort.
-  for (std::size_t i = 0; i < 3; ++i) {
-    std::copy(arr.begin(), arr.end(), arr_cpy.begin());
-    Test.ordenamientoPorSeleccion(arr_cpy.data(), arr_len);
-  }
+  TEST_SORT(ordenamientoPorSeleccion, "Selection")
 
   // Merge Sort.
-  for (std::size_t i = 0; i < 3; ++i) {
-    std::copy(arr.begin(), arr.end(), arr_cpy.begin());
-    Test.ordenamientoPorMezcla(arr_cpy.data(), arr_len);
-  }
+  TEST_SORT(ordenamientoPorMezcla, "Merge")
+
+  // Extra empty line just because.
+  std::cout << std::endl;
 }
 
 void generateRandomArray(std::vector<int>& arr, std::size_t arr_len,
