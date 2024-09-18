@@ -23,7 +23,7 @@ void generateRandomArray(std::vector<int>& arr, std::size_t arr_len,
     auto endTime = std::chrono::high_resolution_clock::now(); \
     std::chrono::duration<double, std::milli> duration = endTime - startTime; \
     std::cout << i + 1 << ". " << sort_name << ":\t" << duration.count() \
-              << "ms" << std::endl; \
+              << " ms" << std::endl; \
   }
 
 /**
