@@ -12,7 +12,15 @@ class Ordenador {
       algoritmos de ordenamiento solamente. */
   // Puede definir cuantos métodos quiera.
 
-  // TODO(jm): doc
+  /**
+   * @brief Primera parte del Merge Sort, parte el arreglo en dos hasta que
+   * queda vacío o con solo un elemento adentro, en cuyo caso retorna. Luego
+   * llama a merge() para continuar el proceso.
+   *
+   * @param A Arreglo a ordenar.
+   * @param first Índice de la primera posición en el arreglo.
+   * @param last Índice de la última posición en el arreglo.
+   */
   void mergeSort(int* A, int first, int last) const {
     // Revisar si el arreglo solo tiene un elemento o está vacío.
     if (first >= last) { return; }
@@ -25,7 +33,15 @@ class Ordenador {
     merge(A, first, mid, last);
   }
 
-  // TODO(jm): doc
+  /**
+   * @brief Parte principal del Merge Sort. Combina las dos mitades del arreglo
+   * de forma ordenada.
+   *
+   * @param A Arreglo a ordenar.
+   * @param first Índice de la primera posición en el arreglo.
+   * @param mid Índice de la posición a la mitad del arreglo.
+   * @param last Índice de la última posición en el arreglo.
+   */
   void merge(int* A, int first, int mid, int last) const {
     // Calcular las longitudes de los dos arreglos.
     int leftLen = mid - first + 1;
@@ -90,7 +106,12 @@ class Ordenador {
       y que no cause la caída del programa.
   */
 
-  // TODO(jm): doc
+  /**
+   * @brief Implementación del Selection Sort.
+   *
+   * @param A Arreglo a ordenar.
+   * @param n Tamaño del arreglo.
+   */
   void ordenamientoPorSeleccion(int *A, int n) const {
     for (int i = 0; i < n - 1; ++i) {
       // Seleccionar el elemento más pequeño en A[i:n]
@@ -108,7 +129,12 @@ class Ordenador {
     }
   }
 
-  // TODO(jm): doc
+  /**
+   * @brief Implementación del Insertion Sort.
+   *
+   * @param A Arreglo a ordenar.
+   * @param n Tamaño del arreglo.
+   */
   void ordenamientoPorInsercion(int *A, int n) const {
     for (int i = 1; i < n; ++i) {
       int key = A[i];
@@ -123,7 +149,12 @@ class Ordenador {
     }
   }
 
-  // TODO(jm): doc
+  /**
+   * @brief Implementación del Merge Sort.
+   *
+   * @param A Arreglo a ordenar.
+   * @param n Tamaño del arreglo.
+   */
   void ordenamientoPorMezcla(int *A, int n) const {
     this->mergeSort(A, 0, n - 1);
   }

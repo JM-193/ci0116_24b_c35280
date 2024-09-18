@@ -9,11 +9,29 @@
 
 #include "Ordenador.hpp"
 
-// TODO(jm): doc
+/**
+ * @brief Genera un arreglo del tamaño especificado con elementos generados
+ * aleatoriamente.
+ * 
+ * @param arr Arreglo a generar.
+ * @param arr_len Tamaño del arreglo.
+ * @param min Mínimo para el rango de los números aleatorios.
+ * @param max Máximo para el rango de los números aleatorios.
+ */
 void generateRandomArray(std::vector<int>& arr, std::size_t arr_len,
     int min, int max);
 
-// TODO(jm): doc
+/**
+ * @brief Testing para los algoritmos de ordenamiento.
+ * 
+ * Hace una copia del arreglo desordenado para conservar el original.
+ * Llama al algoritmo de ordenamiento, tomando el tiempo antes y después de
+ * la ejecución para calcular la duración.
+ * Reporta los resultados.
+ * 
+ * @param sort_func Nombre de la subrutina conteniendo el algoritmo.
+ * @param sort_name Nombre del algoritmo, usado para impresión.
+ */
 #define TEST_SORT(sort_func, sort_name) \
   std::cout << std::endl; \
   for (std::size_t i = 0; i < 3; ++i) { \

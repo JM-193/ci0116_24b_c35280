@@ -1,7 +1,6 @@
 bin/
 build/
-html/
-latex/
+make_doc/
 *.pyc
 .DS_Store
 .vscode
