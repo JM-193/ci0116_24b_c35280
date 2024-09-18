@@ -3,5 +3,5 @@
 
 #include <vector>
 
-void generateRandomArray(std::vector<std::size_t> arr, std::size_t arr_len,
-    std::size_t min, std::size_t max);
+void generateRandomArray(std::vector<int>& arr, std::size_t arr_len,
+    int min, int max);
