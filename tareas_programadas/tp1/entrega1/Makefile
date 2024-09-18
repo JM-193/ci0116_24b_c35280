@@ -1,3 +1,3 @@
 include ../../../common/Makefile
 
-ARGS += 100
+ARGS += 200000

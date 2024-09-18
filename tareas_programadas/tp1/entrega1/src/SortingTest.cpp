@@ -43,7 +43,7 @@ int main(int argc, char* argv[]) {
 
   // Obtain array length.
   const std::size_t arr_len = std::strtoull(argv[1], nullptr, 10);
-  std::cout << std::endl << "Array Length: " << arr_len << std::endl;
+  std::cout << std::endl << "Array Length:\t" << arr_len << std::endl;
 
   // Declare array.
   std::vector<int> arr(arr_len);
