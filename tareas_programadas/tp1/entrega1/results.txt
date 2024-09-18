@@ -1,0 +1,118 @@
+### Debug
+-----------------------------
+  Array Length:   50000
+
+  1. Insertion:   1430.21ms
+  2. Insertion:   1376.72ms
+  3. Insertion:   1370.99ms
+
+  1. Selection:   1855.16ms
+  2. Selection:   1873.14ms
+  3. Selection:   1867.29ms
+
+  1. Merge:       12.5801ms
+  2. Merge:       12.0366ms
+  3. Merge:       12.0773ms
+-----------------------------
+  Array Length:   100000
+
+  1. Insertion:   5566.38ms
+  2. Insertion:   5557.55ms
+  3. Insertion:   5550.63ms
+
+  1. Selection:   7382.81ms
+  2. Selection:   7399.48ms
+  3. Selection:   7391.85ms
+
+  1. Merge:       26.0685ms
+  2. Merge:       25.5025ms
+  3. Merge:       25.4588ms
+-----------------------------
+  Array Length:   150000
+
+  1. Insertion:   12280.7ms
+  2. Insertion:   12132.9ms
+  3. Insertion:   12334.5ms
+
+  1. Selection:   16587ms
+  2. Selection:   16261.5ms
+  3. Selection:   16709.7ms
+
+  1. Merge:       40.2713ms
+  2. Merge:       39.3595ms
+  3. Merge:       39.116ms
+-----------------------------
+  Array Length:   200000
+
+  1. Insertion:   21926.1ms
+  2. Insertion:   21921ms
+  3. Insertion:   21862ms
+
+  1. Selection:   29546.6ms
+  2. Selection:   29545.9ms
+  3. Selection:   29540.7ms
+
+  1. Merge:       54.3783ms
+  2. Merge:       53.2885ms
+  3. Merge:       53.2358ms
+-----------------------------
+
+### Release
+
+-----------------------------
+  Array Length:   50000
+
+  1. Insertion:   182.533ms
+  2. Insertion:   166.148ms
+  3. Insertion:   166.068ms
+
+  1. Selection:   446.706ms
+  2. Selection:   445.81ms
+  3. Selection:   447.873ms
+
+  1. Merge:       4.92337ms
+  2. Merge:       4.76838ms
+  3. Merge:       4.7991ms
+-----------------------------
+  Array Length:   100000
+
+  1. Insertion:   671.789ms
+  2. Insertion:   661.852ms
+  3. Insertion:   661.189ms
+
+  1. Selection:   1774.48ms
+  2. Selection:   1774.41ms
+  3. Selection:   1774.05ms
+
+  1. Merge:       10.2463ms
+  2. Merge:       9.98717ms
+  3. Merge:       9.94328ms
+-----------------------------
+  Array Length:   150000
+
+  1. Insertion:   1493.17ms
+  2. Insertion:   1486.18ms
+  3. Insertion:   1485.88ms
+
+  1. Selection:   3982.77ms
+  2. Selection:   3984.6ms
+  3. Selection:   3981.51ms
+
+  1. Merge:       15.7598ms
+  2. Merge:       15.5271ms
+  3. Merge:       15.5339ms
+-----------------------------
+  Array Length:   200000
+
+  1. Insertion:   2663.73ms
+  2. Insertion:   2644.36ms
+  3. Insertion:   2641.72ms
+
+  1. Selection:   7076.25ms
+  2. Selection:   7074.41ms
+  3. Selection:   7074.25ms
+
+  1. Merge:       21.4336ms
+  2. Merge:       20.8992ms
+  3. Merge:       20.9251ms
+-----------------------------
