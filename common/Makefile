@@ -28,7 +28,7 @@ RSC=assets#= Dir for assets: images, sounds... to be included with executable
 BIN=bin#= Dir where executable files are generated
 BUILD=build#= Dir for object files (.o|.class)
 DOC=make_doc#= Dir where documentation output will be generated
-SRC=src#= Dir containing source code to compile, e.g: DIR=experiment
+SRC=source#= Dir containing source code to compile, e.g: DIR=experiment
 TESTS=tests#= Dir where test cases are stored, e.g: TESTS=large
 
 # If src/ dir does not exist, use current directory .
