@@ -81,6 +81,12 @@ int main(int argc, char* argv[]) {
   // Merge Sort.
   TEST_SORT(ordenamientoPorMezcla, "Merge")
 
+  // Heap Sort.
+  TEST_SORT(ordenamientoPorMonticulos, "Heap")
+
+  // Quick Sort.
+  TEST_SORT(ordenamientoRapido, "Quick")
+
   // Extra empty line just because.
   std::cout << std::endl;
 }

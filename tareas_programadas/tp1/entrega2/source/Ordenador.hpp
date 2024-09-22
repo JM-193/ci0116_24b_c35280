@@ -1,16 +1,17 @@
 // Copyright 2024 Jose Manuel Mora Z
 #pragma once
 
-#define SWAP_INT(one, two) \
-  int temp = one; \
-  one = two; \
-  two = temp;
-
 class Ordenador {
  private:
   /* Defina aquí los métodos auxiliares de los
       algoritmos de ordenamiento solamente. */
   // Puede definir cuantos métodos quiera.
+
+  static inline void swap(int& a, int& b) {
+    int temp = a;
+    a = b;
+    b = temp;
+  }
 
   /**
    * @brief Primera parte del Merge Sort, parte el arreglo en dos hasta que
@@ -106,7 +107,7 @@ class Ordenador {
     }
 
     if (largest != index) {
-      SWAP_INT(Arr[index], Arr[largest])
+      Ordenador::swap(Arr[index], Arr[largest]);
       maxHeapify(Arr, largest, heap_size);
     }
   }
@@ -127,15 +128,15 @@ class Ordenador {
   }
 
   // TODO(jm): doc
-  const int partition(int* Arr, const int first, const int last) const {
-    const int pivot = Arr[last];
+  int partition(int* Arr, const int first, const int last) const {
+    int pivot = Arr[last];
     int i = first - 1;
-    for (int j = first; j < last - 1; ++j) {
+    for (int j = first; j < last; ++j) {
       if (Arr[j] <= pivot) {
-        SWAP_INT(Arr[++i], Arr[j]);
+        Ordenador::swap(Arr[++i], Arr[j]);
       }
     }
-    SWAP_INT(Arr[i + 1], Arr[last]);
+    Ordenador::swap(Arr[i + 1], Arr[last]);
     return i + 1;
   }
 
@@ -180,7 +181,7 @@ class Ordenador {
       }
       // Intercambiar A[i] con el A[min] resultante.
       if (min != i) {
-        SWAP_INT(A[min], A[i])
+        Ordenador::swap(A[min], A[i]);
       }
     }
   }
@@ -220,7 +221,7 @@ class Ordenador {
     int heap_size = 0;
     this->buildMaxHeap(A, n, heap_size);
     for (int i = n; i >= 1; --i) {
-      SWAP_INT(A[1], A[i])
+      Ordenador::swap(A[1], A[i]);
       --heap_size;
       this->maxHeapify(A, 1, heap_size);
     }
@@ -228,7 +229,7 @@ class Ordenador {
 
   // TODO(jm): doc
   void ordenamientoRapido(int *A, int n) const {
-    this->quickSort(A, 0, n-1);
+    this->quickSort(A, 0, n - 1);
   }
 
   // void ordenamientoPorRadix(int *A, int n) const {}
