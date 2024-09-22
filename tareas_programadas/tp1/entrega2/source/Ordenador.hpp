@@ -21,7 +21,7 @@ class Ordenador {
    * @param first Índice de la primera posición en el arreglo.
    * @param last Índice de la última posición en el arreglo.
    */
-  void mergeSort(int* A, int first, int last) const {
+  void mergeSort(int* A, const int first, const int last) const {
     // Revisar si el arreglo solo tiene un elemento o está vacío.
     if (first >= last) { return; }
 
@@ -42,7 +42,7 @@ class Ordenador {
    * @param mid Índice de la posición a la mitad del arreglo.
    * @param last Índice de la última posición en el arreglo.
    */
-  void merge(int* A, int first, int mid, int last) const {
+  void merge(int* A, const int first, const int mid, const int last) const {
     // Calcular las longitudes de los dos arreglos.
     int leftLen = mid - first + 1;
     int rightLen = last - mid;
@@ -85,7 +85,7 @@ class Ordenador {
   }
 
   // TODO(jm): doc
-  void buildMaxHeap(int* Arr, int arr_len, int& heap_size) const {
+  void buildMaxHeap(int* Arr, const int arr_len, int& heap_size) const {
     heap_size = arr_len;
     for (int i = arr_len / 2; i >= 0; --i) {
       this->maxHeapify(Arr, i, heap_size);
@@ -93,7 +93,7 @@ class Ordenador {
   }
 
   // TODO(jm): doc
-  void maxHeapify(int* Arr, int index, int& heap_size) const {
+  void maxHeapify(int* Arr, const int index, int& heap_size) const {
     int left = this->Left(index);
     int right = this->Right(index);
     int largest = index;
@@ -116,6 +116,28 @@ class Ordenador {
 
   // TODO(jm): doc
   inline int Right(const int index) const { return index * 2 + 1; }
+
+  // TODO(jm): doc
+  void quickSort(int* Arr, const int first, const int last) const {
+    if (first < last) {
+      const int pivot = this->partition(Arr, first, last);
+      this->quickSort(Arr, first, pivot - 1);
+      this->quickSort(Arr, pivot + 1, last);
+    }
+  }
+
+  // TODO(jm): doc
+  const int partition(int* Arr, const int first, const int last) const {
+    const int pivot = Arr[last];
+    int i = first - 1;
+    for (int j = first; j < last - 1; ++j) {
+      if (Arr[j] <= pivot) {
+        SWAP_INT(Arr[++i], Arr[j]);
+      }
+    }
+    SWAP_INT(Arr[i + 1], Arr[last]);
+    return i + 1;
+  }
 
 
  public:
@@ -205,7 +227,9 @@ class Ordenador {
   }
 
   // TODO(jm): doc
-  void ordenamientoRapido(int *A, int n) const {}
+  void ordenamientoRapido(int *A, int n) const {
+    this->quickSort(A, 0, n-1);
+  }
 
   // void ordenamientoPorRadix(int *A, int n) const {}
 
