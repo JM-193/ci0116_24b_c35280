@@ -98,10 +98,10 @@ class Ordenador {
     int right = this->Right(index);
     int largest = index;
 
-    if (left <= heap_size && Arr[left] > Arr[index]) {
+    if (left < heap_size && Arr[left] > Arr[index]) {
       largest = left;
     }
-    if (right <= heap_size && Arr[right] > Arr[largest]) {
+    if (right < heap_size && Arr[right] > Arr[largest]) {
       largest = right;
     }
 
@@ -111,8 +111,11 @@ class Ordenador {
     }
   }
 
-  inline int Left(const int index) const { return index / 2; }
-  inline int Right(const int index) const { return index / 2 + 1; }
+  // TODO(jm): doc
+  inline int Left(const int index) const { return index * 2; }
+
+  // TODO(jm): doc
+  inline int Right(const int index) const { return index * 2 + 1; }
 
 
  public:
