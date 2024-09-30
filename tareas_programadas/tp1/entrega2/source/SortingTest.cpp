@@ -87,6 +87,9 @@ int main(int argc, char* argv[]) {
   // Quick Sort.
   TEST_SORT(ordenamientoRapido, "Quick")
 
+  // Radix Sort.
+  TEST_SORT(ordenamientoPorRadix, "Radix")
+
   // Extra empty line just because.
   std::cout << std::endl;
 }

@@ -7,6 +7,29 @@ class Ordenador {
       algoritmos de ordenamiento solamente. */
   // Puede definir cuantos métodos quiera.
 
+  /**
+   * @brief Valida si un arreglo es válido.
+   *
+   * @param A Arreglo a validar.
+   * @param n Tamaño del arreglo.
+   * @return true Si el arreglo es válido.
+   * @return false Si el arreglo no es válido.
+   */
+  bool validateArray(int* A, const int n) const {
+    if (A != nullptr && n > 0) {
+      return true;
+    } else {
+      std::cerr << "El arreglo no es válido." << std::endl;
+      return false;
+    }
+  }
+
+  /**
+   * @brief Intercambia los valores de dos variables enteras.
+   *
+   * @param a Primera variable.
+   * @param b Segunda variable.
+   */
   static inline void swap(int& a, int& b) {
     int temp = a;
     a = b;
@@ -87,7 +110,9 @@ class Ordenador {
 
   // TODO(jm): doc
   void buildMaxHeap(int* Arr, const int arr_len, int& heap_size) const {
+    // Actualizar el tamaño del heap.
     heap_size = arr_len;
+    // Construir el heap máximo.
     for (int i = arr_len / 2; i >= 0; --i) {
       this->maxHeapify(Arr, i, heap_size);
     }
@@ -95,10 +120,13 @@ class Ordenador {
 
   // TODO(jm): doc
   void maxHeapify(int* Arr, const int index, int& heap_size) const {
+    // Obtener los índices de los hijos.
     int left = this->Left(index);
     int right = this->Right(index);
+    // Valor más grande entre el nodo y sus hijos.
     int largest = index;
 
+    // Revisar si el hijo izquierdo o derecho es más grande.
     if (left < heap_size && Arr[left] > Arr[index]) {
       largest = left;
     }
@@ -106,8 +134,10 @@ class Ordenador {
       largest = right;
     }
 
+    // Si el nodo no es el más grande, intercambiarlo con el más grande.
     if (largest != index) {
       Ordenador::swap(Arr[index], Arr[largest]);
+      // Llamar recursivamente a maxHeapify para el sub-árbol.
       maxHeapify(Arr, largest, heap_size);
     }
   }
@@ -120,8 +150,11 @@ class Ordenador {
 
   // TODO(jm): doc
   void quickSort(int* Arr, const int first, const int last) const {
+    // Revisar si el arreglo solo tiene un elemento o está vacío.
     if (first < last) {
+      // Particionar el arreglo.
       const int pivot = this->partition(Arr, first, last);
+      // Ordenar las dos mitades recursivamente.
       this->quickSort(Arr, first, pivot - 1);
       this->quickSort(Arr, pivot + 1, last);
     }
@@ -129,17 +162,84 @@ class Ordenador {
 
   // TODO(jm): doc
   int partition(int* Arr, const int first, const int last) const {
+    // Tomar el último elemento como pivote.
     int pivot = Arr[last];
+    // Índice para los elementos menores que el pivote.
     int i = first - 1;
+    // Ordenar los elementos en relación al pivote.
     for (int j = first; j < last; ++j) {
+      // Si el elemento es menor o igual al pivote, intercambiarlo y aumentar i.
       if (Arr[j] <= pivot) {
         Ordenador::swap(Arr[++i], Arr[j]);
       }
     }
+    // Intercambiar el pivote con el elemento en i + 1.
     Ordenador::swap(Arr[i + 1], Arr[last]);
+    // Retornar la posición del pivote.
     return i + 1;
   }
 
+  // TODO(jm): doc
+  int getMax(int* Arr, const int n) const {
+    // Valor máximo en el arreglo (k).
+    int max = Arr[0];
+    // Encontrar el máximo.
+    for (int i = 1; i < n; ++i) {
+      if (Arr[i] > max) {
+        max = Arr[i];
+      }
+    }
+    return max;
+  }
+
+  // TODO(jm): doc
+  void countingSort(int* Arr, const int n, const int digits) const {
+    // Arreglo "B", donde se guardará el resultado.
+    int output[n];
+    // Arreglo auxiliar "C".
+    int count[10] = {0};
+
+    for (int i = 0; i < n; ++i) {
+      // Contar las apariciones de cada "dígito".
+      count[getDigit(Arr, i, digits)]++;
+    }
+
+    for (int i = 1; i < 10; ++i) {
+      // Sumar las apariciones de los dígitos anteriores.
+      // Esto indica la posición de cada dígito en el arreglo ordenado.
+      count[i] += count[i - 1];
+    }
+
+    // Recorrer el arreglo en orden inverso,
+    // para conservar el orden de los elementos.
+    for (int i = n - 1; i >= 0; --i) {
+      // Agregar los elementos a "B" en la posición indicada por "C".
+      output[count[getDigit(Arr, i, digits)] - 1] = Arr[i];
+      // Disminuir la posición del siguiente elemento del mismo dígito.
+      count[getDigit(Arr, i, digits)]--;
+    }
+
+    for (int i = 0; i < n; ++i) {
+      // Copiar los elementos ordenados al arreglo original.
+      Arr[i] = output[i];
+    }
+  }
+
+  // TODO(jm): doc
+  void radixSort(int* Arr, const int n) const {
+    // Encontrar el valor máximo en el arreglo (k).
+    int max = this->getMax(Arr, n);
+
+    // Ordenar los elementos por dígito.
+    for (int digits = 1; max / digits > 0; digits *= 10) {
+      this->countingSort(Arr, n, digits);
+    }
+  }
+
+  // TODO(jm): doc
+  int getDigit(int *Arr, int i, const int digits) const {
+    return (Arr[i] / digits) % 10;
+  }
 
  public:
   Ordenador() = default;
@@ -170,6 +270,8 @@ class Ordenador {
    * @param n Tamaño del arreglo.
    */
   void ordenamientoPorSeleccion(int *A, int n) const {
+    if (!this->validateArray(A, n)) { return; }
+
     for (int i = 0; i < n - 1; ++i) {
       // Seleccionar el elemento más pequeño en A[i:n]
       int min = i;
@@ -193,6 +295,8 @@ class Ordenador {
    * @param n Tamaño del arreglo.
    */
   void ordenamientoPorInsercion(int *A, int n) const {
+    if (!this->validateArray(A, n)) { return; }
+
     for (int i = 1; i < n; ++i) {
       int key = A[i];
       // Insertar A[i] en el sub-arreglo ordenado A[0:i-1]
@@ -213,11 +317,15 @@ class Ordenador {
    * @param n Tamaño del arreglo.
    */
   void ordenamientoPorMezcla(int *A, int n) const {
+    if (!this->validateArray(A, n)) { return; }
+
     this->mergeSort(A, 0, n - 1);
   }
 
   // TODO(jm): doc
   void ordenamientoPorMonticulos(int *A, int n) const {
+    if (!this->validateArray(A, n)) { return; }
+
     int heap_size = 0;
     this->buildMaxHeap(A, n, heap_size);
     for (int i = n; i >= 1; --i) {
@@ -229,10 +337,17 @@ class Ordenador {
 
   // TODO(jm): doc
   void ordenamientoRapido(int *A, int n) const {
+    if (!this->validateArray(A, n)) { return; }
+
     this->quickSort(A, 0, n - 1);
   }
 
-  // void ordenamientoPorRadix(int *A, int n) const {}
+  // TODO(jm): doc
+  void ordenamientoPorRadix(int *A, int n) const {
+    if (!this->validateArray(A, n)) { return; }
+
+    this->radixSort(A, n);
+  }
 
   /**
    * @brief Retorna un std::string con los datos de la tarea.
