@@ -108,9 +108,8 @@ endif
 .PHONY: clean gitconfig help instdeps lint project run tc test update version
 all: debug test lint doc  ## Run targets: test lint doc
 debug: FLAGS += -g  ## Build an executable for debugging [default]
-noflag: FLAGS =  ## Build an executable without flags
 release: FLAGS += -O3 -DNDEBUG  ## Build an optimized executable
-debug noflag release: $(TARGETS)
+debug release: $(TARGETS)
 asan: FLAGS += -fsanitize=address -fno-omit-frame-pointer  ## Build for detecting memory leaks and invalid accesses
 msan: FLAGS += -fsanitize=memory  ## Build for detecting uninitialized memory usage
 msan: CC = clang
