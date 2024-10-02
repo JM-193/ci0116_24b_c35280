@@ -113,7 +113,7 @@ class Ordenador {
     // Actualizar el tamaño del heap.
     heap_size = arr_len;
     // Construir el heap máximo.
-    for (int i = arr_len / 2; i >= 0; --i) {
+    for (int i = arr_len / 2 - 1; i >= 0; --i) {
       this->maxHeapify(Arr, i, heap_size);
     }
   }
@@ -143,10 +143,10 @@ class Ordenador {
   }
 
   // TODO(jm): doc
-  inline int Left(const int index) const { return index * 2; }
+  inline int Left(const int index) const { return (index * 2) + 1; }
 
   // TODO(jm): doc
-  inline int Right(const int index) const { return index * 2 + 1; }
+  inline int Right(const int index) const { return (index * 2 + 1) + 1; }
 
   // TODO(jm): doc
   void quickSort(int* Arr, const int first, const int last) const {
@@ -326,12 +326,12 @@ class Ordenador {
   void ordenamientoPorMonticulos(int *A, int n) const {
     if (!this->validateArray(A, n)) { return; }
 
-    int heap_size = 0;
+    int heap_size = n;
     this->buildMaxHeap(A, n, heap_size);
-    for (int i = n; i >= 1; --i) {
-      Ordenador::swap(A[1], A[i]);
+    for (int i = n - 1; i >= 0; --i) {
+      Ordenador::swap(A[0], A[i]);
       --heap_size;
-      this->maxHeapify(A, 1, heap_size);
+      this->maxHeapify(A, 0, heap_size);
     }
   }
 
