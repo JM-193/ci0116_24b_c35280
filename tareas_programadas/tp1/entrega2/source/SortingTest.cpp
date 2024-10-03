@@ -37,7 +37,7 @@ void generateRandomArray(std::vector<int>& arr, std::size_t arr_len,
   for (std::size_t i = 0; i < 3; ++i) { \
     std::copy(arr.begin(), arr.end(), arr_cpy.begin()); \
     auto startTime = std::chrono::high_resolution_clock::now(); \
-    Test.sort_func(arr_cpy.data(), arr_len); \
+    sort_func(arr_cpy.data(), arr_len); \
     auto endTime = std::chrono::high_resolution_clock::now(); \
     std::chrono::duration<double, std::milli> duration = endTime - startTime; \
     std::cout << i + 1 << ". " << sort_name << ":\t" << duration.count() \
@@ -73,22 +73,22 @@ int main(int argc, char* argv[]) {
   std::vector<int> arr_cpy(arr_len);
 
   // Insertion Sort.
-  TEST_SORT(ordenamientoPorInsercion, "Insertion")
+  TEST_SORT(Test.ordenamientoPorInsercion, "Insertion")
 
   // Selection Sort.
-  TEST_SORT(ordenamientoPorSeleccion, "Selection")
+  TEST_SORT(Test.ordenamientoPorSeleccion, "Selection")
 
   // Merge Sort.
-  TEST_SORT(ordenamientoPorMezcla, "Merge")
+  TEST_SORT(Test.ordenamientoPorMezcla, "Merge")
 
   // Heap Sort.
-  TEST_SORT(ordenamientoPorMonticulos, "Heap")
+  TEST_SORT(Test.ordenamientoPorMonticulos, "Heap")
 
   // Quick Sort.
-  TEST_SORT(ordenamientoRapido, "Quick")
+  TEST_SORT(Test.ordenamientoRapido, "Quick")
 
   // Radix Sort.
-  TEST_SORT(ordenamientoPorRadix, "Radix")
+  TEST_SORT(Test.ordenamientoPorRadix, "Radix")
 
   // Extra empty line just because.
   std::cout << std::endl;
