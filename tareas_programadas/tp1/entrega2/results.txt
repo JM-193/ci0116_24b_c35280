@@ -1,3 +1,57 @@
-### Debug
+###### Normal
 
-### Release
+Array Length:   50000         100000        150000        200000
+
+1. Insertion:   791.998 ms    3135.61 ms    6807.31 ms    12315.8 ms
+2. Insertion:   789.629 ms    3140.86 ms    6853.96 ms    12281.5 ms
+3. Insertion:   790.384 ms    3142.31 ms    6916.56 ms    12196.7 ms
+
+1. Selection:   1073.33 ms    4256.46 ms    9749.87 ms    17292.1 ms
+2. Selection:   1071.01 ms    4265.48 ms    9772.76 ms    17117.7 ms
+3. Selection:   1079.93 ms    4256.01 ms    9797.66 ms    17047.9 ms
+
+1. Merge:       7.24855 ms    15.0256 ms    23.3413 ms    31.8727 ms
+2. Merge:       7.00321 ms    14.7110 ms    23.1157 ms    30.9997 ms
+3. Merge:       7.02119 ms    14.7661 ms    22.8620 ms    30.8776 ms
+
+1. Heap:        10.2534 ms    21.5738 ms    34.3166 ms    45.7525 ms
+2. Heap:        10.2018 ms    21.4606 ms    34.2931 ms    46.7721 ms
+3. Heap:        10.0237 ms    21.5896 ms    33.4536 ms    46.8987 ms
+
+1. Quick:       4.99613 ms    9.82995 ms    15.6686 ms    20.6738 ms
+2. Quick:       4.81915 ms    9.71603 ms    15.4350 ms    20.6762 ms
+3. Quick:       4.73328 ms    10.0754 ms    15.7706 ms    20.6187 ms
+
+1. Radix:       5.61949 ms    10.7876 ms    16.0524 ms    21.1658 ms
+2. Radix:       5.33699 ms    10.7770 ms    15.7967 ms    21.1113 ms
+3. Radix:       5.51827 ms    10.6891 ms    16.0956 ms    21.0263 ms
+
+
+
+###### Release
+
+Array Length:   50000         100000        150000        200000
+
+1. Insertion:   179.757 ms    666.475 ms    1510.16 ms    2659.35 ms
+2. Insertion:   167.504 ms    664.661 ms    1492.00 ms    2657.40 ms
+3. Insertion:   169.844 ms    664.598 ms    1492.16 ms    2656.81 ms
+
+1. Selection:   450.999 ms    1780.26 ms    4025.09 ms    7098.96 ms
+2. Selection:   449.940 ms    1777.55 ms    4019.35 ms    7089.60 ms
+3. Selection:   450.245 ms    1778.25 ms    4007.27 ms    7113.74 ms
+
+1. Merge:       4.96629 ms    10.2664 ms    17.1048 ms    21.6525 ms
+2. Merge:       4.80054 ms    10.0176 ms    15.6074 ms    21.1471 ms
+3. Merge:       4.81503 ms    10.0141 ms    15.5401 ms    21.1040 ms
+
+1. Heap:        4.10077 ms    8.71234 ms    13.5788 ms    19.1258 ms
+2. Heap:        4.06520 ms    8.76943 ms    13.6333 ms    18.9227 ms
+3. Heap:        4.05043 ms    8.67366 ms    13.5926 ms    18.8382 ms
+
+1. Quick:       2.75852 ms    5.73226 ms    8.98334 ms    12.0172 ms
+2. Quick:       2.75342 ms    5.72967 ms    8.99751 ms    13.5572 ms
+3. Quick:       2.76466 ms    5.75171 ms    9.00806 ms    12.2865 ms
+
+1. Radix:       2.35826 ms    4.45099 ms    6.66563 ms    9.09782 ms
+2. Radix:       2.18643 ms    4.31981 ms    6.44411 ms    8.85010 ms
+3. Radix:       2.16373 ms    4.33997 ms    6.42298 ms    8.73678 ms
