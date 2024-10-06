@@ -108,7 +108,13 @@ class Ordenador {
     delete[] leftArr;
   }
 
-  // TODO(jm): doc
+  /**
+   * @brief Crea el Montículo Máximo a partir de un arreglo.
+   *
+   * @param Arr Arreglo a ordenar.
+   * @param arr_len Tamaño del arreglo.
+   * @param heap_size Tamaño del heap.
+   */
   void buildMaxHeap(int* Arr, const int arr_len, int& heap_size) const {
     // Actualizar el tamaño del heap.
     heap_size = arr_len;
@@ -118,7 +124,14 @@ class Ordenador {
     }
   }
 
-  // TODO(jm): doc
+  /**
+   * @brief Reordena el sub-montículo para mantener la propiedad
+   * de Montículo Máximo.
+   *
+   * @param Arr Arreglo a ordenar.
+   * @param index Índice del nodo raíz del sub-árbol.
+   * @param heap_size Tamaño del heap.
+   */
   void maxHeapify(int* Arr, const int index, int& heap_size) const {
     // Obtener los índices de los hijos.
     int left = this->Left(index);
@@ -142,13 +155,29 @@ class Ordenador {
     }
   }
 
-  // TODO(jm): doc
+  /**
+   * @brief Retorna el índice del hijo izquierdo de un nodo.
+   *
+   * @param index Índice del nodo.
+   * @return int Índice del hijo izquierdo.
+   */
   inline int Left(const int index) const { return (index * 2) + 1; }
 
-  // TODO(jm): doc
+  /**
+   * @brief Retorna el índice del hijo derecho de un nodo.
+   *
+   * @param index Índice del nodo.
+   * @return int Índice del hijo derecho.
+   */
   inline int Right(const int index) const { return (index * 2 + 1) + 1; }
 
-  // TODO(jm): doc
+  /**
+   * @brief Sección recursiva del quickSort.
+   *
+   * @param Arr Arreglo a ordenar.
+   * @param first Primer índice del arreglo.
+   * @param last Último índice del arreglo.
+   */
   void quickSort(int* Arr, const int first, const int last) const {
     // Revisar si el arreglo solo tiene un elemento o está vacío.
     if (first < last) {
@@ -160,7 +189,14 @@ class Ordenador {
     }
   }
 
-  // TODO(jm): doc
+  /**
+   * @brief Particiona el arreglo en relación a un pivote.
+   *
+   * @param Arr Arreglo a ordenar.
+   * @param first Primer índice del arreglo.
+   * @param last Último índice del arreglo.
+   * @return int Índice del pivote.
+   */
   int partition(int* Arr, const int first, const int last) const {
     // Tomar el último elemento como pivote.
     int pivot = Arr[last];
@@ -179,7 +215,13 @@ class Ordenador {
     return i + 1;
   }
 
-  // TODO(jm): doc
+  /**
+   * @brief Encuentra el valor máximo en un arreglo.
+   *
+   * @param Arr Arreglo a revisar.
+   * @param n Tamaño del arreglo.
+   * @return int Valor máximo en el arreglo.
+   */
   int getMax(int* Arr, const int n) const {
     // Valor máximo en el arreglo (k).
     int max = Arr[0];
@@ -192,7 +234,13 @@ class Ordenador {
     return max;
   }
 
-  // TODO(jm): doc
+  /**
+   * @brief Implementación del Counting Sort.
+   *
+   * @param Arr Arreglo a ordenar.
+   * @param n Tamaño del arreglo.
+   * @param digits Dígitos a considerar.
+   */
   void countingSort(int* Arr, const int n, const int digits) const {
     // Arreglo "B", donde se guardará el resultado.
     int output[n];
@@ -225,7 +273,12 @@ class Ordenador {
     }
   }
 
-  // TODO(jm): doc
+  /**
+   * @brief Sección principal del Radix Sort.
+   *
+   * @param Arr Arreglo a ordenar.
+   * @param n Tamaño del arreglo.
+   */
   void radixSort(int* Arr, const int n) const {
     // Encontrar el valor máximo en el arreglo (k).
     int max = this->getMax(Arr, n);
@@ -236,7 +289,14 @@ class Ordenador {
     }
   }
 
-  // TODO(jm): doc
+  /**
+   * @brief Obtiene el dígito de un número en una posición específica.
+   *
+   * @param Arr Arreglo a revisar.
+   * @param i Índice del elemento en el arreglo.
+   * @param digits Dígitos a considerar.
+   * @return int Dígito en la posición indicada.
+   */
   int getDigit(int *Arr, int i, const int digits) const {
     return (Arr[i] / digits) % 10;
   }
@@ -322,7 +382,12 @@ class Ordenador {
     this->mergeSort(A, 0, n - 1);
   }
 
-  // TODO(jm): doc
+  /**
+   * @brief Implementación del Heap Sort.
+   *
+   * @param A Arreglo a ordenar.
+   * @param n Tamaño del arreglo.
+   */
   void ordenamientoPorMonticulos(int *A, int n) const {
     if (!this->validateArray(A, n)) { return; }
 
@@ -335,14 +400,24 @@ class Ordenador {
     }
   }
 
-  // TODO(jm): doc
+  /**
+   * @brief Implementación del Quick Sort.
+   *
+   * @param A Arreglo a ordenar.
+   * @param n Tamaño del arreglo.
+   */
   void ordenamientoRapido(int *A, int n) const {
     if (!this->validateArray(A, n)) { return; }
 
     this->quickSort(A, 0, n - 1);
   }
 
-  // TODO(jm): doc
+  /**
+   * @brief Implementación del Radix Sort.
+   *
+   * @param A Arreglo a ordenar.
+   * @param n Tamaño del arreglo.
+   */
   void ordenamientoPorRadix(int *A, int n) const {
     if (!this->validateArray(A, n)) { return; }
 
