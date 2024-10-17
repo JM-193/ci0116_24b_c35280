@@ -1,5 +1,5 @@
 @INCLUDE = ../../../common/Doxyfile
 
-PROJECT_NAME = "Tarea Programada 1 - Entrega 1"
+PROJECT_NAME = "Tarea Programada 1 - Entrega 2"
 
-PROJECT_BRIEF = "Entrega 1 de la Tarea Programada 1"
+PROJECT_BRIEF = "Entrega 2 de la Tarea Programada 1"
