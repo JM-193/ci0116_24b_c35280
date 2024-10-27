@@ -1,3 +1,4 @@
+// Copyright 2024 Jose Manuel Mora Z
 /*
  Credits
  Based on: Prof. Arturo Camacho, Universidad de Costa Rica
@@ -22,7 +23,8 @@ class SLListNode {
   SLListNode() = default;
 
   /// @brief Constructor
-  SLListNode(const DataType& value, SLListNode<DataType>* next = nullptr)
+  explicit SLListNode(const DataType& value,
+      SLListNode<DataType>* next = nullptr)
       : key(value), next(next) {}
 
   /// @brief Destructor
@@ -36,7 +38,7 @@ class SLListNode {
 
   /// @brief Get the key of the node
   /// @return The key of the node
-  DataType getKey() const { this->key }
+  DataType getKey() const { this->key; }
 
   /// @brief Get the next node
   /// @return The next node

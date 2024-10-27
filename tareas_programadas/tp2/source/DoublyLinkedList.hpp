@@ -1,3 +1,4 @@
+// Copyright 2024 Jose Manuel Mora Z
 /*
  Credits
  Based on: Prof. Arturo Camacho, Universidad de Costa Rica
@@ -17,7 +18,7 @@ class DLListNode {
   DLListNode(const DataType& value, DLListNode<DataType>* next = nullptr,
              DLListNode<DataType>* prev = nullptr);
 
-  ~DLListNode() {};
+  ~DLListNode() default;
 
   DataType getKey() const;
 
@@ -44,7 +45,7 @@ class DLList {
  public:
   DLList() = default;
 
-  ~DLList() {};
+  ~DLList() default;
 
   void insert(const DataType& value);
 

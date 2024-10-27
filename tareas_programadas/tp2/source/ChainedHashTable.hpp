@@ -1,3 +1,4 @@
+// Copyright 2024 Jose Manuel Mora Z
 /*
  Credits
  Based on: Prof. Arturo Camacho, Universidad de Costa Rica
@@ -13,9 +14,9 @@ template <typename DataType>
 
 class ChainedHashTable {
  public:
-  ChainedHashTable(size_t size) {};
+  explicit ChainedHashTable(size_t size) = default;
 
-  ~ChainedHashTable() {};
+  ~ChainedHashTable() = default;
 
   void insert(const DataType& value);
 

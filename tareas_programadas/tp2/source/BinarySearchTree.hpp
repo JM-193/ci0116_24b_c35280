@@ -1,3 +1,4 @@
+// Copyright 2024 Jose Manuel Mora Z
 /*
  Credits
  Based on: Prof. Arturo Camacho, Universidad de Costa Rica
@@ -51,7 +52,7 @@ class BSTree {
  public:
   BSTree() = default;
 
-  ~BSTree() {};
+  ~BSTree() = default;
 
   void insert(const DataType &value);
 
@@ -77,7 +78,7 @@ class BSTree {
   BSTreeNode<DataType> *getRoot() const;
 
   void fastInsert(size_t n);
-  
+
  private:
   BSTreeNode<DataType> *root;
 };

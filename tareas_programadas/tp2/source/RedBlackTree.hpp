@@ -1,3 +1,4 @@
+// Copyright 2024 Jose Manuel Mora Z
 /*
  Credits
  Based on: Prof. Arturo Camacho, Universidad de Costa Rica
