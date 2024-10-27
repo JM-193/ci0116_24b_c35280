@@ -10,49 +10,97 @@
 template <typename DataType>
 class BSTree;
 
+/// @brief Node of a binary search tree
+/// @tparam DataType Typename of the node's key
 template <typename DataType>
 class BSTreeNode {
  public:
   friend class BSTree<DataType>;
-
+  /// @brief Default constructor
   BSTreeNode() = default;
-
+  /// @brief Constructor
+  /// @param value Key of the node
+  /// @param parent Parent of the node
+  /// @param left Left child of the node
+  /// @param right Right child of the node
   BSTreeNode(const DataType &value, BSTreeNode<DataType> *parent = nullptr,
              BSTreeNode<DataType> *left = nullptr,
-             BSTreeNode<DataType> *right = nullptr);
+             BSTreeNode<DataType> *right = nullptr)
+             : key(value), parent(parent), left(left), right(right) {}
+  /// @brief Destructor
+  ~BSTreeNode() = default;
 
-  ~BSTreeNode();
+  // Rule of five
+  /// @brief Deleted copy constructor
+  BSTreeNode(const BSTreeNode<DataType> &other) = delete;
+  /// @brief Deleted copy assignment operator
+  BSTreeNode<DataType> &operator=(const BSTreeNode<DataType> &other) = delete;
+  /// @brief Deleted move constructor
+  BSTreeNode(BSTreeNode<DataType> &&other) = delete;
+  /// @brief Deleted move assignment operator
+  BSTreeNode<DataType> &operator=(BSTreeNode<DataType> &&other) = delete;
 
-  DataType getKey() const;
+  /// @brief Returns the key of the node
+  /// @return Key of the node
+  DataType getKey() const { return key; }
 
-  BSTreeNode<DataType> *getParent() const;
+  /// @brief Returns the parent of the node
+  /// @return Parent of the node
+  BSTreeNode<DataType> *getParent() const { return parent; }
 
-  BSTreeNode<DataType> *getLeft() const;
+  /// @brief Returns the left child of the node
+  /// @return Left child of the node
+  BSTreeNode<DataType> *getLeft() const { return left; }
 
-  BSTreeNode<DataType> *getRight() const;
+  /// @brief Returns the right child of the node
+  /// @return Right child of the node
+  BSTreeNode<DataType> *getRight() const { return right; }
 
-  void setParent(BSTreeNode<DataType> *parent);
+  /// @brief Sets the parent of the node
+  /// @param parent New parent of the node
+  void setParent(BSTreeNode<DataType> *parent) { this->parent = parent; }
 
-  void setLeft(BSTreeNode<DataType> *left);
+  /// @brief Sets the left child of the node
+  /// @param left New left child of the node
+  void setLeft(BSTreeNode<DataType> *left) { this->left = left; }
 
-  void setRight(BSTreeNode<DataType> *right);
+  /// @brief Sets the right child of the node
+  /// @param right New right child of the node
+  void setRight(BSTreeNode<DataType> *right) { this->right = right; }
 
  private:
+  /// @brief Key of the node
   DataType key;
-
+  /// @brief Parent of the node
   BSTreeNode<DataType> *parent = nullptr;
-
+  /// @brief Left child of the node
   BSTreeNode<DataType> *left = nullptr;
-
+  /// @brief Right child of the node
   BSTreeNode<DataType> *right = nullptr;
 };
 
+/// @brief A Binary Search Tree
+/// @tparam DataType Typename of the tree's keys
 template <typename DataType>
 class BSTree {
- public:
-  BSTree() = default;
+ private:
+  BSTreeNode<DataType> *root;
 
+ public:
+  /// @brief Default constructor
+  BSTree() = default;
+  /// @brief Destructor
   ~BSTree() = default;
+
+  // Rule of five
+  /// @brief Deleted copy constructor
+  BSTree(const BSTree<DataType> &other) = delete;
+  /// @brief Deleted copy assignment operator
+  BSTree<DataType> &operator=(const BSTree<DataType> &other) = delete;
+  /// @brief Deleted move constructor
+  BSTree(BSTree<DataType> &&other) = delete;
+  /// @brief Deleted move assignment operator
+  BSTree<DataType> &operator=(BSTree<DataType> &&other) = delete;
 
   void insert(const DataType &value);
 
@@ -75,10 +123,9 @@ class BSTree {
 
   BSTreeNode<DataType> *getSuccessor(const BSTreeNode<DataType> *node) const;
 
-  BSTreeNode<DataType> *getRoot() const;
+  /// @brief Returns the root of the tree
+  /// @return Root of the tree
+  BSTreeNode<DataType> *getRoot() const { return root; }
 
   void fastInsert(size_t n);
-
- private:
-  BSTreeNode<DataType> *root;
 };
