@@ -8,6 +8,8 @@
 template <typename DataType>
 class SLList;
 
+/// @brief Node of a singly linked list
+/// @tparam DataType Typename of the node's key
 template <typename DataType>
 class SLListNode {
  private:
@@ -53,6 +55,8 @@ class SLListNode {
   void setNext(SLListNode<DataType>* next) { this->next = next; }
 };
 
+/// @brief A Singly Linked List
+/// @tparam DataType Typename of the list's key
 template <typename DataType>
 class SLList {
  private:
