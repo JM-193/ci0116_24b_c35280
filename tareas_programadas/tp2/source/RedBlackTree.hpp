@@ -18,36 +18,36 @@ class RBTreeNode {
 
   RBTreeNode() = default;
 
-  RBTreeNode(const DataType &value, RBTreeNode<DataType> *parent = nullptr,
-             RBTreeNode<DataType> *left = nullptr,
-             RBTreeNode<DataType> *right = nullptr, enum colors c = RED);
+  RBTreeNode(const DataType &value, RBTreeNode<DataType>* parent = nullptr,
+             RBTreeNode<DataType>* left = nullptr,
+             RBTreeNode<DataType>* right = nullptr, enum colors c = RED);
 
   ~RBTreeNode();
 
   DataType getKey() const;
 
-  RBTreeNode<DataType> *getParent() const;
+  RBTreeNode<DataType>* getParent() const;
 
-  RBTreeNode<DataType> *getLeft() const;
+  RBTreeNode<DataType>* getLeft() const;
 
-  RBTreeNode<DataType> *getRight() const;
+  RBTreeNode<DataType>* getRight() const;
 
   void setKey(DataType key);
 
-  void setParent(RBTreeNode<DataType> *parent);
+  void setParent(RBTreeNode<DataType>* parent);
 
-  void setLeft(RBTreeNode<DataType> *left);
+  void setLeft(RBTreeNode<DataType>* left);
 
-  void setRight(RBTreeNode<DataType> *right);
+  void setRight(RBTreeNode<DataType>* right);
 
  private:
   DataType key;
 
-  RBTreeNode<DataType> *parent;
+  RBTreeNode<DataType>* parent;
 
-  RBTreeNode<DataType> *left;
+  RBTreeNode<DataType>* left;
 
-  RBTreeNode<DataType> *right;
+  RBTreeNode<DataType>* right;
 
   enum colors color;
 };
@@ -63,25 +63,25 @@ class RBTree {
 
   void remove(const DataType &value);
 
-  RBTreeNode<DataType> *search(const RBTreeNode<DataType> *rootOfSubtree,
+  RBTreeNode<DataType>* search(const RBTreeNode<DataType>* rootOfSubtree,
                                const DataType &value) const;
 
-  RBTreeNode<DataType> *getMinimum(
-      const RBTreeNode<DataType> *rootOfSubtree) const;
+  RBTreeNode<DataType>* getMinimum(
+      const RBTreeNode<DataType>* rootOfSubtree) const;
 
-  RBTreeNode<DataType> *getMaximum(
-      const RBTreeNode<DataType> *rootOfSubtree) const;
+  RBTreeNode<DataType>* getMaximum(
+      const RBTreeNode<DataType>* rootOfSubtree) const;
 
-  RBTreeNode<DataType> *getSuccessor(const RBTreeNode<DataType> *node) const;
+  RBTreeNode<DataType>* getSuccessor(const RBTreeNode<DataType>* node) const;
 
-  RBTreeNode<DataType> *getRoot() const;
+  RBTreeNode<DataType>* getRoot() const;
 
 
-  RBTreeNode<DataType> *getNil() const;
+  RBTreeNode<DataType>* getNil() const;
 
 
  private:
-  RBTreeNode<DataType> *root;
+  RBTreeNode<DataType>* root;
 
-  RBTreeNode<DataType> *nil;
+  RBTreeNode<DataType>* nil;
 };
