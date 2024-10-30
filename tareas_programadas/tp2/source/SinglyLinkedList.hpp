@@ -83,8 +83,7 @@ class SLList {
   /// Allows for repeated elements
   /// @param value Value to be inserted
   void insert(const DataType& value) {
-    SLListNode<DataType>* new_node = new SLListNode<DataType>(value, this->nil);
-    this->nil = new_node;
+    this->nil = new SLListNode<DataType>(value, this->nil);;
   }
 
   /// @brief Searches for a value in the list
@@ -111,30 +110,31 @@ class SLList {
       if (current == nullptr) {
         break;
       } else {
-        if (prev == nullptr) {
-          // If we found it and prev is nullptr, then it is the first element
-          this->nil = current->getNext();
-        } else {
-          // Connect the previous node with the next node
-          prev->setNext(current->getNext());
-        }
-        delete current;
+        this->remove(current, prev);
       }
     }
   }
 
   /// @brief Removes the specified node from the list
   /// @param node Node to be removed
-  void remove(SLListNode<DataType>* node) {
+  void remove(SLListNode<DataType>* node,
+      SLListNode<DataType>* prev = nullptr) {
     // If the node is nullptr, there's nothing to remove
     if (node == nullptr) return;
-    // Search for the node
+
     SLListNode<DataType>* current = this->nil;
-    SLListNode<DataType>* prev = nullptr;
-    while (current != nullptr && current != node) {
-      prev = current;
-      current = current->getNext();
+    if (prev) {
+      // If prev is given, we can remove the node directly
+      current = node;
+    } else {
+      // If no prev is given, search for the node
+      while (current != nullptr && current != node) {
+        prev = current;
+        current = current->getNext();
+      }
     }
+
+    // Node removal
     if (current != nullptr) {
       if (prev == nullptr) {
         // If we found it and prev is nullptr, then it is the first element
