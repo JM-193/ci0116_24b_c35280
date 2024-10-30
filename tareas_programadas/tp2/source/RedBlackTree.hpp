@@ -83,8 +83,9 @@ class RBTreeNode {
 template <typename DataType>
 class RBTree {
  private:
+  /// @brief Root of the tree
   RBTreeNode<DataType>* root;
-
+  /// @brief Nil node
   RBTreeNode<DataType>* nil;
 
  public:
@@ -102,13 +103,304 @@ class RBTree {
   /// @brief Deleted move assignment operator
   RBTree<DataType>& operator=(RBTree<DataType>&& other) = delete;
 
-  // TODO(jm)
-  void insert(const DataType &value);
-  // TODO(jm)
-  void remove(const DataType &value);
+  void insert(const DataType &value) {
+    // Start searching for the insertion point
+    RBTreeNode<DataType>* current = this->root;
+    while (current && current != this->nil) {
+      if (value < current->getKey()) {
+        current = current->getLeft();
+      } else {
+        current = current->getRight();
+      }
+    }
+    // The tree is empty, insert as the root (which is black)
+    if (current->getParent() == this->nil) {
+      this->root = new RBTreeNode<DataType>(value, this->nil, this->nil,
+                                            this->nil, BLACK);
+      return;
+    }
+    // Create the new node
+    auto newNode = new RBTreeNode<DataType>(value, current->getParent(),
+                                            this->nil, this->nil, RED);
+    // Insert the new node
+    if (value < current->getKey()) {
+      current->setLeft(newNode);
+    } else {
+      current->setRight(newNode);
+    }
+    // Fix the tree
+    this->insertFixup(newNode);
+  }
+
+  void insertFixup(RBTreeNode<DataType>* node) {
+    // While the parent is red
+    while (node->getParent()->color == RED) {
+      if (node->getParent() == node->getParent()->getParent()->getLeft()) {
+        // The parent is the left child of the grandparent
+        this->rightInsertFixup(node);
+      } else {
+        // The parent is the right child of the grandparent
+        this->leftInsertFixup(node);
+      }
+    }
+    // The root must be black
+    this->root->color = BLACK;
+  }
+
+  void rightInsertFixup(RBTreeNode<DataType>* node) {
+    // Get the uncle
+    RBTreeNode<DataType>* uncle = node->getParent()->getParent()->getRight();
+    // Case 1: The uncle is red
+    if (uncle->color == RED) {
+      node->getParent()->color = BLACK;
+      uncle->color = BLACK;
+      node->getParent()->getParent()->color = RED;
+      node = node->getParent()->getParent();
+    } else {
+      // Case 2: The uncle is black and the node is the right child
+      if (node == node->getParent()->getRight()) {
+        node = node->getParent();
+        this->leftRotate(node);
+      }
+      // Case 3: The uncle is black and the node is the left child
+      node->getParent()->color = BLACK;
+      node->getParent()->getParent()->color = RED;
+      this->rightRotate(node->getParent()->getParent());
+    }
+  }
+
+  void leftInsertFixup(RBTreeNode<DataType*> node) {
+    // Get the uncle
+    RBTreeNode<DataType>* uncle = node->getParent()->getParent()->getLeft();
+    // Case 1: The uncle is red
+    if (uncle->color == RED) {
+      node->getParent()->color = BLACK;
+      uncle->color = BLACK;
+      node->getParent()->getParent()->color = RED;
+      node = node->getParent()->getParent();
+    } else {
+      // Case 2: The uncle is black and the node is the left child
+      if (node == node->getParent()->getLeft()) {
+        node = node->getParent();
+        this->rightRotate(node);
+      }
+      // Case 3: The uncle is black and the node is the right child
+      node->getParent()->color = BLACK;
+      node->getParent()->getParent()->color = RED;
+      this->leftRotate(node->getParent()->getParent());
+    }
+  }
+
+  void leftRotate(RBTreeNode<DataType>* node) {
+    // Get the right child
+    RBTreeNode<DataType>* rightChild = node->getRight();
+    // Update the right child
+    node->setRight(rightChild->getLeft());
+    if (rightChild->getLeft() != this->nil) {
+      rightChild->getLeft()->setParent(node);
+    }
+    // Update the parent
+    rightChild->setParent(node->getParent());
+    // If node was the root, update it
+    if (node->getParent() == this->nil) {
+      this->root = rightChild;
+    } else if (node == node->getParent()->getLeft()) {
+      node->getParent()->setLeft(rightChild);
+    } else {
+      node->getParent()->setRight(rightChild);
+    }
+    // Update the right child
+    rightChild->setLeft(node);
+    node->setParent(rightChild);
+  }
+
+  void rightRotate(RBTreeNode<DataType>* node) {
+    // Get the left child
+    RBTreeNode<DataType>* leftChild = node->getLeft();
+    // Update the left child
+    node->setLeft(leftChild->getRight());
+    if (leftChild->getRight() != this->nil) {
+      leftChild->getRight()->setParent(node);
+    }
+    // Update the parent
+    leftChild->setParent(node->getParent());
+    // If node was the root, update it
+    if (node->getParent() == this->nil) {
+      this->root = leftChild;
+    } else if (node == node->getParent()->getRight()) {
+      node->getParent()->setRight(leftChild);
+    } else {
+      node->getParent()->setLeft(leftChild);
+    }
+    // Update the left child
+    leftChild->setRight(node);
+    node->setParent(leftChild);
+  }
+
+  void remove(const DataType &value) {
+    // Search for the node to remove
+    RBTreeNode<DataType>* node = search(this->root, value);
+    // If the node doesn't exist, return
+    if (node == nullptr) return;
+    // Remove the node
+    this->remove(node);
+  }
+
+  void remove(RBTreeNode<DataType>* node) {
+    // Save the original node
+    RBTreeNode<DataType>* original = node;
+    // Save the original color
+    enum colors originalColor = original->color;
+    // Child node to replace the original
+    RBTreeNode<DataType>* child = nullptr;
+    if (node->getLeft() == this->nil) {
+      // If the left child is nil, replace the node with the right child
+      child = node->getRight();
+      this->transplant(node, node->getRight());
+    } else if (node->getRight() == this->nil) {
+      // If the right child is nil, replace the node with the left child
+      child = node->getLeft();
+      this->transplant(node, node->getLeft());
+    } else {
+      // If the node has two children, replace it with the successor
+      original = this->getSuccessor(node);
+      originalColor = original->color;
+      child = original->getRight();
+      // Check if the successor is the immediate child
+      if (original->getParent() == node) {
+        child->setParent(original);
+      } else {
+        // If it's not, replace the successor with its right child
+        this->transplant(original, original->getRight());
+        // Update the right child
+        original->setRight(node->getRight());
+        original->getRight()->setParent(original);
+      }
+      // Replace the node with the successor
+      this->transplant(node, original);
+      // Update the left child
+      original->setLeft(node->getLeft());
+      original->getLeft()->setParent(original);
+      // Update the color
+      original->color = node->color;
+    }
+    // If the original color was black, fix the tree
+    if (originalColor == BLACK) {
+      this->removeFixup(child);
+    }
+  }
+
+  void removeFixup(RBTreeNode<DataType>* node) {
+    // While the node is not the root and is black
+    while (node != this->root && node->color == BLACK) {
+      if (node == node->getParent()->getLeft()) {
+        // The node is the left child
+        this->leftRemoveFixup(node);
+      } else {
+        // The node is the right child
+        this->rightRemoveFixup(node);
+      }
+    }
+    // The node must be black
+    node->color = BLACK;
+  }
+
+  void leftRemoveFixup(RBTreeNode<DataType>* node) {
+    // Get the sibling
+    RBTreeNode<DataType>* sibling = node->getParent()->getRight();
+    // Case 1: The sibling is red
+    if (sibling->color == RED) {
+      sibling->color = BLACK;
+      node->getParent()->color = RED;
+      this->leftRotate(node->getParent());
+      sibling = node->getParent()->getRight();
+    }
+    // Case 2: The sibling is black and both children are black
+    if (sibling->getLeft()->color == BLACK &&
+        sibling->getRight()->color == BLACK) {
+      sibling->color = RED;
+      node = node->getParent();
+    } else {
+      // Case 3: The sibling is black and the left child is red
+      if (sibling->getRight()->color == BLACK) {
+        sibling->getLeft()->color = BLACK;
+        sibling->color = RED;
+        this->rightRotate(sibling);
+        sibling = node->getParent()->getRight();
+      }
+      // Case 4: The sibling is black and the right child is red
+      sibling->color = node->getParent()->color;
+      node->getParent()->color = BLACK;
+      sibling->getRight()->color = BLACK;
+      this->leftRotate(node->getParent());
+      node = this->root;
+    }
+  }
+
+  void rightRemoveFixup(RBTreeNode<DataType>* node) {
+    // Get the sibling
+    RBTreeNode<DataType>* sibling = node->getParent()->getLeft();
+    // Case 1: The sibling is red
+    if (sibling->color == RED) {
+      sibling->color = BLACK;
+      node->getParent()->color = RED;
+      this->rightRotate(node->getParent());
+      sibling = node->getParent()->getLeft();
+    }
+    // Case 2: The sibling is black and both children are black
+    if (sibling->getRight()->color == BLACK &&
+        sibling->getLeft()->color == BLACK) {
+      sibling->color = RED;
+      node = node->getParent();
+    } else {
+      // Case 3: The sibling is black and the right child is red
+      if (sibling->getLeft()->color == BLACK) {
+        sibling->getRight()->color = BLACK;
+        sibling->color = RED;
+        this->leftRotate(sibling);
+        sibling = node->getParent()->getLeft();
+      }
+      // Case 4: The sibling is black and the left child is red
+      sibling->color = node->getParent()->color;
+      node->getParent()->color = BLACK;
+      sibling->getLeft()->color = BLACK;
+      this->rightRotate(node->getParent());
+      node = this->root;
+    }
+  }
+
+  void transplant(RBTreeNode<DataType>* u, RBTreeNode<DataType>* v) {
+    // If u is the root, update it
+    if (u->getParent() == this->nil) {
+      this->root = v;
+    } else if (u == u->getParent()->getLeft()) {
+      // U is the left child
+      u->getParent()->setLeft(v);
+    } else {
+      // U is the right child
+      u->getParent()->setRight(v);
+    }
+    // Update the parent of v
+    v->setParent(u->getParent());
+  }
 
   RBTreeNode<DataType>* search(const RBTreeNode<DataType>* rootOfSubtree,
-                               const DataType &value) const;
+                               const DataType &value) const {
+    // If the subtree is empty, return nullptr
+    if (rootOfSubtree == nullptr) return nullptr;
+    // Search for the node with the given value
+    RBTreeNode<DataType>* current =
+        const_cast<RBTreeNode<DataType>*>(rootOfSubtree);
+    while (current && current->getKey() != value) {
+      if (value < current->getKey()) {
+        current = current->getLeft();
+      } else {
+        current = current->getRight();
+      }
+    }
+    // Return the node or nullptr if it doesn't exist
+    return current;
+  }
 
   RBTreeNode<DataType>* getMinimum(
       const RBTreeNode<DataType>* rootOfSubtree) const {
