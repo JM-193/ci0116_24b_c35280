@@ -143,10 +143,7 @@ class BSTree {
       // If the node wasn't found, return
       return;
     }
-
-    // If the node has no children, just remove it
-
-
+    // Node removal
     if (node->getLeft() == nullptr) {
       // Node has no left child
       if (node->getRight() == nullptr) {
