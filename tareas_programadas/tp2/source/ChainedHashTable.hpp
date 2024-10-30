@@ -11,8 +11,12 @@
 #include "DoublyLinkedList.hpp"
 
 template <typename DataType>
-
 class ChainedHashTable {
+ private:
+  size_t size;
+
+  std::vector<DLList<DataType>> table;
+
  public:
   explicit ChainedHashTable(size_t size) = default;
 
@@ -31,9 +35,4 @@ class ChainedHashTable {
   std::vector<DLList<DataType>> getTable() const;
 
   void setTable(std::vector<DLList<DataType>>);
-
- private:
-  size_t size;
-
-  std::vector<DLList<DataType>> table;
 };
