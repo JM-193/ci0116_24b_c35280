@@ -139,43 +139,54 @@ class BSTree {
   void remove(const DataType &value) {
     // Search for the node to be removed
     BSTreeNode<DataType>* node = search(this->root, value);
-    if (node == nullptr) {
-      // If the node wasn't found, return
-      return;
-    }
+    // If the node wasn't found, return
+    if (node == nullptr) return;
+    // Else remove the node
+    remove(node);
+  }
+
+  void remove(BSTreeNode<DataType>* node) {
+    // If the node is nullptr, return
+    if (node == nullptr) return;
     // Node removal
     if (node->getLeft() == nullptr) {
       // Node has no left child
-      if (node->getRight() == nullptr) {
-        // If it also has no right child, just remove it
-        delete node;
-        return;
-      }
-      // Replace it with its right child
-      node->getRight()->setParent(node->getParent());
-      node->getParent()->setRight(node->getRight());
-      delete node;
+      this->transplant(node, node->getRight());
     } else if (node->getRight() == nullptr) {
       // Node has no right child
-      if (node->getLeft() == nullptr) {
-        // If it also has no left child, just remove it
-        delete node;
-        return;
-      }
-      // Replace it with its left child
-      node->getLeft()->setParent(node->getParent());
-      node->getParent()->setLeft(node->getLeft());
-      delete node;
+      this->transplant(node, node->getLeft());
     } else {
       // Node has two children
-      // Find the successor of the node
       BSTreeNode<DataType>* successor = getSuccessor(node);
-      // Swap the node with its successor
-      DataType temp = node->getKey();
-      node->setKey(successor->getKey());
-      successor->setKey(temp);
-      // Remove the swapped node
-      remove(successor->getKey());
+      if (successor->getParent() != node) {
+        // The successor is not the immediate child
+        this->transplant(successor, successor->getRight());
+        // Update the right child
+        successor->setRight(node->getRight());
+        successor->getRight()->setParent(successor);
+      }
+      // Replace the node with its successor
+      this->transplant(node, successor);
+      // Update the left child
+      successor->setLeft(node->getLeft());
+      successor->getLeft()->setParent(successor);
+    }
+  }
+
+  void transplant(BSTreeNode<DataType>* u, BSTreeNode<DataType>* v) {
+    // If the parent of u is nullptr, u is the root
+    if (u->getParent() == nullptr) {
+      this->root = v;
+    } else if (u == u->getParent()->getLeft()) {
+      // U is the left child of its parent
+      u->getParent()->setLeft(v);
+    } else {
+      // U is the right child of its parent
+      u->getParent()->setRight(v);
+    }
+    // If v is not nullptr, update its parent
+    if (v != nullptr) {
+      v->setParent(u->getParent());
     }
   }
 
