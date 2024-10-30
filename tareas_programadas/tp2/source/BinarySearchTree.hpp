@@ -267,16 +267,56 @@ class BSTree {
   }
 
   BSTreeNode<DataType>* getMinimum(
-      const BSTreeNode<DataType>* rootOfSubtree) const;
+      const BSTreeNode<DataType>* rootOfSubtree) const {
+    // If the subtree is empty, return nullptr
+    if (rootOfSubtree == nullptr) return nullptr;
+    // Search for the minimum node in the subtree
+    BSTreeNode<DataType>* current =
+        const_cast<BSTreeNode<DataType>*>(rootOfSubtree);
+    while (current && current->getLeft() != nullptr) {
+      current = current->getLeft();
+    }
+    // Return the minimum node
+    return current;
+  }
 
   BSTreeNode<DataType>* getMaximum(
-      const BSTreeNode<DataType>* rootOfSubtree) const;
+      const BSTreeNode<DataType>* rootOfSubtree) const {
+    // If the subtree is empty, return nullptr
+    if (rootOfSubtree == nullptr) return nullptr;
+    // Search for the maximum node in the subtree
+    BSTreeNode<DataType>* current =
+        const_cast<BSTreeNode<DataType>*>(rootOfSubtree);
+    while (current && current->getRight() != nullptr) {
+      current = current->getRight();
+    }
+    // Return the maximum node
+    return current;
+  }
 
-  BSTreeNode<DataType>* getSuccessor(const BSTreeNode<DataType>* node) const;
+  BSTreeNode<DataType>* getSuccessor(const BSTreeNode<DataType>* node) const {
+    // If the node is nullptr, return nullptr
+    if (node == nullptr) return nullptr;
+    // If there's a right child, the successor is the min of the right subtree
+    if (node->getRight() != nullptr) {
+      return getMinimum(node->getRight());
+    }
+    // Otherwise, go up until we find a node that is a left child
+    BSTreeNode<DataType>* current = node->getParent();
+    BSTreeNode<DataType>* child = const_cast<BSTreeNode<DataType>*>(node);
+    while (current != nullptr && child == current->getRight()) {
+      child = current;
+      current = current->getParent();
+    }
+    // Return the successor or nullptr if it doesn't exist
+    return current;
+  }
 
   /// @brief Returns the root of the tree
   /// @return Root of the tree
   BSTreeNode<DataType>* getRoot() const { return this->root; }
 
-  void fastInsert(size_t n);
+  void fastInsert(size_t n) {
+    // TODO(jm): ???
+  }
 };
