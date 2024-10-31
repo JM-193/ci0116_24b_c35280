@@ -103,6 +103,8 @@ class RBTree {
   /// @brief Deleted move assignment operator
   RBTree<DataType>& operator=(RBTree<DataType>&& other) = delete;
 
+  /// @brief Insert a new node in the tree
+  /// @param value Value to be inserted in the tree
   void insert(const DataType &value) {
     // Start searching for the insertion point
     RBTreeNode<DataType>* current = this->root;
@@ -132,22 +134,26 @@ class RBTree {
     this->insertFixup(newNode);
   }
 
+  /// @brief Fix the tree after inserting a new node
+  /// @param node Node to start the fixup
   void insertFixup(RBTreeNode<DataType>* node) {
     // While the parent is red
     while (node->getParent()->color == RED) {
       if (node->getParent() == node->getParent()->getParent()->getLeft()) {
         // The parent is the left child of the grandparent
-        this->rightInsertFixup(node);
+        this->leftInsertFixup(node);
       } else {
         // The parent is the right child of the grandparent
-        this->leftInsertFixup(node);
+        this->rightInsertFixup(node);
       }
     }
     // The root must be black
     this->root->color = BLACK;
   }
 
-  void rightInsertFixup(RBTreeNode<DataType>* node) {
+  /// @brief Section of the insert fixup if the parent is the left child
+  /// @param node Node to start the fixup
+  void leftInsertFixup(RBTreeNode<DataType>* node) {
     // Get the uncle
     RBTreeNode<DataType>* uncle = node->getParent()->getParent()->getRight();
     // Case 1: The uncle is red
@@ -169,7 +175,9 @@ class RBTree {
     }
   }
 
-  void leftInsertFixup(RBTreeNode<DataType*> node) {
+  /// @brief Section of the insert fixup if the parent is the right child
+  /// @param node Node to start the fixup
+  void rightInsertFixup(RBTreeNode<DataType*> node) {
     // Get the uncle
     RBTreeNode<DataType>* uncle = node->getParent()->getParent()->getLeft();
     // Case 1: The uncle is red
@@ -191,6 +199,8 @@ class RBTree {
     }
   }
 
+  /// @brief Left rotate the tree starting from the given node
+  /// @param node Node to start the rotation
   void leftRotate(RBTreeNode<DataType>* node) {
     // Get the right child
     RBTreeNode<DataType>* rightChild = node->getRight();
@@ -214,6 +224,8 @@ class RBTree {
     node->setParent(rightChild);
   }
 
+  /// @brief Right rotate the tree starting from the given node
+  /// @param node Node to start the rotation
   void rightRotate(RBTreeNode<DataType>* node) {
     // Get the left child
     RBTreeNode<DataType>* leftChild = node->getLeft();
@@ -237,6 +249,8 @@ class RBTree {
     node->setParent(leftChild);
   }
 
+  /// @brief Remove a node with the given value
+  /// @param value Value to be removed
   void remove(const DataType &value) {
     // Search for the node to remove
     RBTreeNode<DataType>* node = search(this->root, value);
@@ -246,6 +260,8 @@ class RBTree {
     this->remove(node);
   }
 
+  /// @brief Remove the given node
+  /// @param node Node to be removed
   void remove(RBTreeNode<DataType>* node) {
     // Save the original node
     RBTreeNode<DataType>* original = node;
@@ -290,6 +306,8 @@ class RBTree {
     }
   }
 
+  /// @brief Fix the tree after removing a node
+  /// @param node Node to start the fixup
   void removeFixup(RBTreeNode<DataType>* node) {
     // While the node is not the root and is black
     while (node != this->root && node->color == BLACK) {
@@ -305,6 +323,8 @@ class RBTree {
     node->color = BLACK;
   }
 
+  /// @brief Section of the remove fixup if the node is the left child
+  /// @param node Node to start the fixup
   void leftRemoveFixup(RBTreeNode<DataType>* node) {
     // Get the sibling
     RBTreeNode<DataType>* sibling = node->getParent()->getRight();
@@ -337,6 +357,8 @@ class RBTree {
     }
   }
 
+  /// @brief Section of the remove fixup if the node is the right child
+  /// @param node Node to start the fixup
   void rightRemoveFixup(RBTreeNode<DataType>* node) {
     // Get the sibling
     RBTreeNode<DataType>* sibling = node->getParent()->getLeft();
@@ -369,6 +391,9 @@ class RBTree {
     }
   }
 
+  /// @brief Replace the node u with the node v
+  /// @param u Node to be replaced
+  /// @param v Node to replace
   void transplant(RBTreeNode<DataType>* u, RBTreeNode<DataType>* v) {
     // If u is the root, update it
     if (u->getParent() == this->nil) {
@@ -384,6 +409,10 @@ class RBTree {
     v->setParent(u->getParent());
   }
 
+  /// @brief Search for a node with the given value
+  /// @param rootOfSubtree Root of the subtree to search
+  /// @param value Value to search for
+  /// @return Node with the given value or nullptr if it doesn't exist
   RBTreeNode<DataType>* search(const RBTreeNode<DataType>* rootOfSubtree,
                                const DataType &value) const {
     // If the subtree is empty, return nullptr
@@ -402,6 +431,9 @@ class RBTree {
     return current;
   }
 
+  /// @brief Get the minimum node in the subtree
+  /// @param rootOfSubtree Root of the subtree
+  /// @return Minimum node in the subtree or nullptr if it's empty
   RBTreeNode<DataType>* getMinimum(
       const RBTreeNode<DataType>* rootOfSubtree) const {
     // If the subtree is empty, return nullptr
@@ -416,6 +448,9 @@ class RBTree {
     return current;
   }
 
+  /// @brief Get the maximum node in the subtree
+  /// @param rootOfSubtree Root of the subtree
+  /// @return Maximum node in the subtree or nullptr if it's empty
   RBTreeNode<DataType>* getMaximum(
       const RBTreeNode<DataType>* rootOfSubtree) const {
     // If the subtree is empty, return nullptr
@@ -430,6 +465,9 @@ class RBTree {
     return current;
   }
 
+  /// @brief Get the successor of the given node
+  /// @param node Node to get the successor of
+  /// @return Successor of the node or nullptr if it doesn't exist
   RBTreeNode<DataType>* getSuccessor(const RBTreeNode<DataType>* node) const {
     // If the node is nullptr, return nullptr
     if (node == nullptr) return nullptr;

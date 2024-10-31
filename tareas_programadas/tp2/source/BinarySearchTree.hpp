@@ -103,6 +103,8 @@ class BSTree {
   /// @brief Deleted move assignment operator
   BSTree<DataType> &operator=(BSTree<DataType> &&other) = delete;
 
+  /// @brief Inserts a new element into the tree
+  /// @param value Value to be inserted
   void insert(const DataType &value) {
     // If the tree is empty, the new node is the root
     if (this->root == nullptr) {
@@ -136,6 +138,8 @@ class BSTree {
     return;
   }
 
+  /// @brief Removes an element from the tree
+  /// @param value Value to be removed
   void remove(const DataType &value) {
     // Search for the node to be removed
     BSTreeNode<DataType>* node = search(this->root, value);
@@ -145,6 +149,8 @@ class BSTree {
     remove(node);
   }
 
+  /// @brief Removes a node from the tree
+  /// @param node Node to be removed
   void remove(BSTreeNode<DataType>* node) {
     // If the node is nullptr, return
     if (node == nullptr) return;
@@ -173,6 +179,9 @@ class BSTree {
     }
   }
 
+  /// @brief Replace the node u with the node v
+  /// @param u Node to be replaced
+  /// @param v Node to replace
   void transplant(BSTreeNode<DataType>* u, BSTreeNode<DataType>* v) {
     // If the parent of u is nullptr, u is the root
     if (u->getParent() == nullptr) {
@@ -190,6 +199,8 @@ class BSTree {
     }
   }
 
+  /// @brief Iterative in order walk of the tree
+  /// @param rootOfSubtree Root of the subtree to walk
   void inorderWalk(BSTreeNode<DataType>* rootOfSubtree) const {
     // TODO(jm): Understand this thing
     std::stack<BSTreeNode<DataType>*> stack;
@@ -209,6 +220,8 @@ class BSTree {
     }
   }
 
+  /// @brief Iterative pre order walk of the tree
+  /// @param rootOfSubtree Root of the subtree to walk
   void preorderWalk(BSTreeNode<DataType>* rootOfSubtree) const {
     // TODO(jm): Understand this thing
     if (root == nullptr) return;
@@ -230,6 +243,8 @@ class BSTree {
     }
   }
 
+  /// @brief Iterative post order walk of the tree
+  /// @param rootOfSubtree Root of the subtree to walk
   void postorderWalk(BSTreeNode<DataType>* rootOfSubtree) const {
     // TODO(jm): Understand this thing
     if (root == nullptr) return;
@@ -257,6 +272,10 @@ class BSTree {
     }
   }
 
+  /// @brief Searches for a node with the given value
+  /// @param rootOfSubtree Root of the subtree to search
+  /// @param value Value to search for
+  /// @return Node with the given value or nullptr if it doesn't exist
   BSTreeNode<DataType>* search(const BSTreeNode<DataType>* rootOfSubtree,
                                const DataType &value) const {
     // Start at the sub-tree root
@@ -274,6 +293,9 @@ class BSTree {
     return current;
   }
 
+  /// @brief Returns the minimum node in the subtree
+  /// @param rootOfSubtree Root of the subtree
+  /// @return Minimum node in the subtree or nullptr if it's empty
   BSTreeNode<DataType>* getMinimum(
       const BSTreeNode<DataType>* rootOfSubtree) const {
     // If the subtree is empty, return nullptr
@@ -288,6 +310,9 @@ class BSTree {
     return current;
   }
 
+  /// @brief Returns the maximum node in the subtree
+  /// @param rootOfSubtree Root of the subtree
+  /// @return Maximum node in the subtree or nullptr if it's empty
   BSTreeNode<DataType>* getMaximum(
       const BSTreeNode<DataType>* rootOfSubtree) const {
     // If the subtree is empty, return nullptr
@@ -302,6 +327,9 @@ class BSTree {
     return current;
   }
 
+  /// @brief Returns the successor of the given node
+  /// @param node Node to get the successor of
+  /// @return Successor of the node or nullptr if it doesn't exist
   BSTreeNode<DataType>* getSuccessor(const BSTreeNode<DataType>* node) const {
     // If the node is nullptr, return nullptr
     if (node == nullptr) return nullptr;
