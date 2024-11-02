@@ -18,9 +18,30 @@ class ChainedHashTable {
   std::vector<DLList<DataType>> table;
 
  public:
-  explicit ChainedHashTable(size_t size) = default;
+  /// @brief Constructor
+  /// @param size Size of the hash table
+  explicit ChainedHashTable(size_t size) : size(size), table(size) {}
+  /// @brief Destructor
+  ~ChainedHashTable() { this->clear(); }
 
-  ~ChainedHashTable() = default;
+  // Rule of five
+  /// @brief Deleted copy constructor
+  ChainedHashTable(const ChainedHashTable<DataType>& other) = delete;
+  /// @brief Deleted copy assignment operator
+  ChainedHashTable<DataType>& operator=(const ChainedHashTable<DataType>& other)
+      = delete;
+  /// @brief Deleted move constructor
+  ChainedHashTable(ChainedHashTable<DataType>&& other) = delete;
+  /// @brief Deleted move assignment operator
+  ChainedHashTable<DataType>& operator=(ChainedHashTable<DataType>&& other)
+      = delete;
+
+  /// @brief Clears the hash table
+  void clear() {
+    for (size_t i = 0; i < this->size; i++) {
+      this->table[i].clear();
+    }
+  }
 
   void insert(const DataType& value);
 
