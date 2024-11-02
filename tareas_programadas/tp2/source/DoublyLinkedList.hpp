@@ -33,7 +33,7 @@ class DLListNode {
              DLListNode<DataType>* prev = nullptr)
              : key(value), next(next), prev(prev) {}
   /// @brief Destructor
-  ~DLListNode() default;
+  ~DLListNode() = default;
   // Rule of five
   /// @brief Deleted copy constructor
   DLListNode(const DLListNode<DataType>& other) = delete;

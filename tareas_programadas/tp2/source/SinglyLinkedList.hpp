@@ -128,6 +128,7 @@ class SLList {
  private:  // Remove specific node
   /// @brief Removes the specified node from the list
   /// @param node Node to be removed
+  /// @param prev Previous node if needed
   void remove(SLListNode<DataType>* node,
       SLListNode<DataType>* prev = nullptr) {
     // If the node is nullptr, there's nothing to remove

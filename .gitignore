@@ -1,6 +1,6 @@
 bin/
 build/
-make_doc/
+doxygen/
 *.pyc
 .DS_Store
 .vscode

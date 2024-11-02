@@ -6,7 +6,8 @@
 
 #pragma once
 
-#include <cstddef>
+#include <iostream>
+#include <stack>
 
 template <typename DataType>
 class BSTree;
@@ -91,7 +92,7 @@ class BSTree {
   /// @brief Default constructor
   BSTree() = default;
   /// @brief Destructor
-  ~BSTree() = default;
+  ~BSTree() { this->clear(); }
 
   // Rule of five
   /// @brief Deleted copy constructor
@@ -228,43 +229,59 @@ class BSTree {
   /// @brief Iterative in order walk of the tree
   /// @param rootOfSubtree Root of the subtree to walk
   void inorderWalk(BSTreeNode<DataType>* rootOfSubtree) const {
-    // TODO(jm): Understand this thing
+    // If the subtree is empty, return
+    if (rootOfSubtree == nullptr) return;
+    // Create a stack to store the nodes
     std::stack<BSTreeNode<DataType>*> stack;
-    BSTreeNode<DataType>* current = root;
+    // Start at the given root
+    BSTreeNode<DataType>* current = rootOfSubtree;
 
-    while (current != nullptr || !stack.empty()) {
-      while (current != nullptr) {
+    // While there are nodes to visit or the stack is not empty
+    while (current || !stack.empty()) {
+      // Keep going left until there are no more left children
+      while (current) {
+        // Push the nodes to the stack
         stack.push(current);
         current = current->getLeft();
       }
 
+      // Pop the root of the current subtree and print it
       current = stack.top();
       stack.pop();
       std::cout << current->getKey() << " ";
 
+      // Move to the right child
       current = current->getRight();
     }
+
+    // End of the walk
+    std::cout << std::endl;
   }
 
   /// @brief Iterative pre order walk of the tree
   /// @param rootOfSubtree Root of the subtree to walk
   void preorderWalk(BSTreeNode<DataType>* rootOfSubtree) const {
-    // TODO(jm): Understand this thing
-    if (root == nullptr) return;
+    // If the subtree is empty, return
+    if (rootOfSubtree == nullptr) return;
 
+    // Create a stack to store the nodes
     std::stack<BSTreeNode<DataType>*> stack;
-    stack.push(root);
+    // Start at the given root
+    stack.push(rootOfSubtree);
 
+    // While the stack is not empty
     while (!stack.empty()) {
-      BSTreeNode<DataType>* node = stack.top();
+      // Pop the top of the stack and print it
+      BSTreeNode<DataType>* current = stack.top();
       stack.pop();
-      std::cout << node->getKey() << " ";
+      std::cout << current->getKey() << " ";
 
-      if (node->getRight() != nullptr) {
-        stack.push(node->getRight());
+      // Push the right and left children to the stack if they exist
+      if (current->getRight() != nullptr) {
+        stack.push(current->getRight());
       }
-      if (node->getLeft() != nullptr) {
-        stack.push(node->getLeft());
+      if (current->getLeft() != nullptr) {
+        stack.push(current->getLeft());
       }
     }
   }
@@ -272,30 +289,42 @@ class BSTree {
   /// @brief Iterative post order walk of the tree
   /// @param rootOfSubtree Root of the subtree to walk
   void postorderWalk(BSTreeNode<DataType>* rootOfSubtree) const {
-    // TODO(jm): Understand this thing
-    if (root == nullptr) return;
+    // If the subtree is empty, return
+    if (rootOfSubtree == nullptr) return;
 
+    // Create two stacks to store the nodes
     std::stack<BSTreeNode<DataType>*> stack1, stack2;
-    stack1.push(root);
+    // Start at the given root
+    stack1.push(rootOfSubtree);
+    // Create a pointer to the current node
+    BSTreeNode<DataType>* current;
 
+    // Iterate until the first stack is empty
     while (!stack1.empty()) {
-      BSTreeNode<DataType>* node = stack1.top();
+      // Pop the top of the first stack and push it to the second stack
+      current = stack1.top();
       stack1.pop();
-      stack2.push(node);
+      stack2.push(current);
 
-      if (node->getLeft() != nullptr) {
-        stack1.push(node->getLeft());
+      // Push the left and right children to the first stack if they exist
+      if (current->getLeft()) {
+        stack1.push(current->getLeft());
       }
-      if (node->getRight() != nullptr) {
-        stack1.push(node->getRight());
+      if (current->getRight()) {
+        stack1.push(current->getRight());
       }
     }
 
+    // Print the nodes in the second stack
     while (!stack2.empty()) {
-      BSTreeNode<DataType>* node = stack2.top();
+      // Pop the top of the second stack and print it
+      current = stack2.top();
       stack2.pop();
-      std::cout << node->getKey() << " ";
+      std::cout << current->getKey() << " ";
     }
+
+    // End of the walk
+    std::cout << std::endl;
   }
 
   /// @brief Searches for a node with the given value
