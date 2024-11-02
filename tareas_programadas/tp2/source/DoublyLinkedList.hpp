@@ -16,15 +16,15 @@ class DLListNode {
   /// @brief Key of the node
   DataType key;
   /// @brief Pointer to the next node
-  DLListNode<DataType>* next;
+  DLListNode<DataType>* next = nullptr;
   /// @brief Pointer to the previous node
-  DLListNode<DataType>* prev;
+  DLListNode<DataType>* prev = nullptr;
 
  public:
   friend class DLList<DataType>;
 
   /// @brief Default constructor
-  DLListNode() = default;
+  DLListNode() : key(DataType()) {}
   /// @brief Constructor
   /// @param value Value to be stored in the node
   /// @param next Pointer to the next node
@@ -72,9 +72,9 @@ class DLList {
 
  public:
   /// @brief Default constructor
-  DLList() = default;
+  DLList() : nil(nullptr) {}
   /// @brief Destructor
-  ~DLList() default;
+  ~DLList() { this->clear(); }
   // Rule of five
   /// @brief Deleted copy constructor
   DLList(const DLList<DataType>& other) = delete;
@@ -84,6 +84,17 @@ class DLList {
   DLList(DLList<DataType>&& other) = default;
   /// @brief Default move assignment operator
   DLList<DataType>& operator=(DLList<DataType>&& other) = default;
+
+  /// @brief Clears the list
+  void clear() {
+    DLListNode<DataType>* current = this->nil;
+    while (current != nullptr) {
+      DLListNode<DataType>* next = current->getNext();
+      delete current;
+      current = next;
+    }
+    this->nil = nullptr;
+  }
 
   /// @brief Inserts a new node with the given value at the start of the list
   /// Allows repeated elements
@@ -121,6 +132,7 @@ class DLList {
     }
   }
 
+ private:  // Remove a specific node
   /// @brief Removes the specified node from the list
   /// @param node Node to be removed
   void remove(DLListNode<DataType>* node) {
@@ -144,6 +156,7 @@ class DLList {
     delete node;
   }
 
+ public:
   /// @brief Returns the nil node (head of the list)
   /// @return Pointer to the nil node
   DLListNode<DataType>* getNil() const { return this->nil; }

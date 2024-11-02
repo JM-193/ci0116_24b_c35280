@@ -16,13 +16,13 @@ class SLListNode {
   /// @brief The key of the node
   DataType key;
   /// @brief The next node
-  SLListNode<DataType>* next;
+  SLListNode<DataType>* next = nullptr;
 
  public:
   friend class SLList<DataType>;
 
   /// @brief Default Constructor
-  SLListNode() = default;
+  SLListNode() : key(DataType()) {}
 
   /// @brief Constructor
   explicit SLListNode(const DataType& value,
@@ -60,14 +60,14 @@ class SLListNode {
 template <typename DataType>
 class SLList {
  private:
-  SLListNode<DataType>* nil;
+  SLListNode<DataType>* nil = nullptr;
 
  public:
   /// @brief Default Constructor
   SLList() = default;
 
   /// @brief Destructor
-  ~SLList() = default;
+  ~SLList() { this->clear(); }
 
   // Rule of five
   /// @brief Deleted Copy Constructor
@@ -78,6 +78,16 @@ class SLList {
   SLList(SLList<DataType>&& other) = delete;
   /// @brief Deleted Move Assignment Operator
   SLList<DataType>& operator=(SLList<DataType>&& other) = delete;
+
+  /// @brief Clears the list
+  void clear() {
+    SLListNode<DataType>* current = this->nil;
+    while (current != nullptr) {
+      SLListNode<DataType>* next = current->getNext();
+      delete current;
+      current = next;
+    }
+  }
 
   /// @brief Inserts a new element into the beginning of list
   /// Allows for repeated elements
@@ -115,6 +125,7 @@ class SLList {
     }
   }
 
+ private:  // Remove specific node
   /// @brief Removes the specified node from the list
   /// @param node Node to be removed
   void remove(SLListNode<DataType>* node,
@@ -147,6 +158,7 @@ class SLList {
     }
   }
 
+ public:
   /// @brief Returns the first node of the list
   /// @return The first node of the list
   SLListNode<DataType>* getNil() const { return this->nil; }

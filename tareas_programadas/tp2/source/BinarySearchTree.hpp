@@ -28,7 +28,7 @@ class BSTreeNode {
  public:
   friend class BSTree<DataType>;
   /// @brief Default constructor
-  BSTreeNode() = default;
+  BSTreeNode() : key(DataType()) {}
   /// @brief Constructor
   /// @param value Key of the node
   /// @param parent Parent of the node
@@ -85,7 +85,7 @@ class BSTreeNode {
 template <typename DataType>
 class BSTree {
  private:
-  BSTreeNode<DataType>* root;
+  BSTreeNode<DataType>* root = nullptr;
 
  public:
   /// @brief Default constructor
@@ -103,6 +103,30 @@ class BSTree {
   /// @brief Deleted move assignment operator
   BSTree<DataType> &operator=(BSTree<DataType> &&other) = delete;
 
+  /// @brief Clears the tree
+  void clear() {
+    // If the tree is empty, return
+    if (this->root == nullptr) return;
+    // Clear the tree
+    clear(this->root);
+    // Set the root to nullptr
+    this->root = nullptr;
+  }
+
+ private: // Clear the tree from a specific node
+  /// @brief Clears the tree starting from the given node
+  /// @param rootOfSubtree Root of the subtree to clear
+  void clear(BSTreeNode<DataType>* rootOfSubtree) {
+    // If the subtree is empty, return
+    if (rootOfSubtree == nullptr) return;
+    // Clear the left and right subtrees
+    clear(rootOfSubtree->getLeft());
+    clear(rootOfSubtree->getRight());
+    // Delete the node
+    delete rootOfSubtree;
+  }
+
+ public:
   /// @brief Inserts a new element into the tree
   /// @param value Value to be inserted
   void insert(const DataType &value) {
@@ -149,6 +173,7 @@ class BSTree {
     remove(node);
   }
 
+ private: // Remove a specific node
   /// @brief Removes a node from the tree
   /// @param node Node to be removed
   void remove(BSTreeNode<DataType>* node) {
@@ -199,6 +224,7 @@ class BSTree {
     }
   }
 
+ public:
   /// @brief Iterative in order walk of the tree
   /// @param rootOfSubtree Root of the subtree to walk
   void inorderWalk(BSTreeNode<DataType>* rootOfSubtree) const {

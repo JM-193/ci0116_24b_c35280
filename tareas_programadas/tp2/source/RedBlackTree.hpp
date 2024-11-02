@@ -20,18 +20,18 @@ class RBTreeNode {
   /// @brief Key of the node
   DataType key;
   /// @brief  Parent of the node
-  RBTreeNode<DataType>* parent;
+  RBTreeNode<DataType>* parent = nullptr;
   /// @brief  Left child of the node
-  RBTreeNode<DataType>* left;
+  RBTreeNode<DataType>* left = nullptr;
   /// @brief  Right child of the node
-  RBTreeNode<DataType>* right;
+  RBTreeNode<DataType>* right = nullptr;
   /// @brief Color of the node
   enum colors color;
 
  public:
   friend class RBTree<DataType>;
   /// @brief Default constructor
-  RBTreeNode() = default;
+  RBTreeNode() : key(DataType()), color(BLACK) {}
   /// @brief Constructor
   /// @param value Value to be stored in the node
   /// @param parent Pointer to the parent node
@@ -84,15 +84,16 @@ template <typename DataType>
 class RBTree {
  private:
   /// @brief Root of the tree
-  RBTreeNode<DataType>* root;
+  RBTreeNode<DataType>* root = nullptr;
   /// @brief Nil node
   RBTreeNode<DataType>* nil;
 
  public:
   /// @brief Default constructor
-  RBTree() = default;
+  RBTree() : nil(new RBTreeNode<DataType>()) {}
   /// @brief Destructor
-  ~RBTree() = default;
+  ~RBTree() { this->clear(); }
+
   // Rule of five
   /// @brief Deleted copy constructor
   RBTree(const RBTree<DataType>& other) = delete;
@@ -103,6 +104,32 @@ class RBTree {
   /// @brief Deleted move assignment operator
   RBTree<DataType>& operator=(RBTree<DataType>&& other) = delete;
 
+  /// @brief Clear the tree
+  void clear() {
+    // If the tree is empty, return
+    if (this->root == nullptr) return;
+    // Clear the tree
+    clear(this->root);
+    // Delete the nil node
+    delete this->nil;
+    // Set the root to nullptr
+    this->root = nullptr;
+  }
+
+ private: // Clear the tree from a specific node
+  /// @brief Clears the tree starting from the given node
+  /// @param rootOfSubtree Root of the subtree to clear
+  void clear(RBTreeNode<DataType>* rootOfSubtree) {
+    // If the subtree is empty, return
+    if (rootOfSubtree == this->nil) return;
+    // Clear the left and right subtrees
+    clear(rootOfSubtree->getLeft());
+    clear(rootOfSubtree->getRight());
+    // Delete the node
+    delete rootOfSubtree;
+  }
+
+ public:
   /// @brief Insert a new node in the tree
   /// @param value Value to be inserted in the tree
   void insert(const DataType &value) {
@@ -134,6 +161,7 @@ class RBTree {
     this->insertFixup(newNode);
   }
 
+ private: // Insert Fixup
   /// @brief Fix the tree after inserting a new node
   /// @param node Node to start the fixup
   void insertFixup(RBTreeNode<DataType>* node) {
@@ -249,6 +277,7 @@ class RBTree {
     node->setParent(leftChild);
   }
 
+ public:
   /// @brief Remove a node with the given value
   /// @param value Value to be removed
   void remove(const DataType &value) {
@@ -260,6 +289,7 @@ class RBTree {
     this->remove(node);
   }
 
+ private: // Remove a specific node
   /// @brief Remove the given node
   /// @param node Node to be removed
   void remove(RBTreeNode<DataType>* node) {
@@ -409,6 +439,7 @@ class RBTree {
     v->setParent(u->getParent());
   }
 
+ public:
   /// @brief Search for a node with the given value
   /// @param rootOfSubtree Root of the subtree to search
   /// @param value Value to search for
