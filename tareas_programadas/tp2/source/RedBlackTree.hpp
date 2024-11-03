@@ -116,7 +116,7 @@ class RBTree {
     this->root = nullptr;
   }
 
- private: // Clear the tree from a specific node
+ private:  // Clear the tree from a specific node
   /// @brief Clears the tree starting from the given node
   /// @param rootOfSubtree Root of the subtree to clear
   void clear(RBTreeNode<DataType>* rootOfSubtree) {
@@ -161,7 +161,7 @@ class RBTree {
     this->insertFixup(newNode);
   }
 
- private: // Insert Fixup
+ private:  // Insert Fixup
   /// @brief Fix the tree after inserting a new node
   /// @param node Node to start the fixup
   void insertFixup(RBTreeNode<DataType>* node) {
@@ -289,7 +289,7 @@ class RBTree {
     this->remove(node);
   }
 
- private: // Remove a specific node
+ private:  // Remove a specific node
   /// @brief Remove the given node
   /// @param node Node to be removed
   void remove(RBTreeNode<DataType>* node) {

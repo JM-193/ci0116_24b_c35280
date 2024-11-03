@@ -1,6 +1,5 @@
 // Copyright 2024 Jose Manuel Mora Z
 
-#include <cstdlib>
 
 #include "BinarySearchTree.hpp"
 #include "ChainedHashTable.hpp"

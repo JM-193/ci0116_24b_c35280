@@ -114,7 +114,7 @@ class BSTree {
     this->root = nullptr;
   }
 
- private: // Clear the tree from a specific node
+ private:   // Clear the tree from a specific node
   /// @brief Clears the tree starting from the given node
   /// @param rootOfSubtree Root of the subtree to clear
   void clear(BSTreeNode<DataType>* rootOfSubtree) {
@@ -174,7 +174,7 @@ class BSTree {
     remove(node);
   }
 
- private: // Remove a specific node
+ private:  // Remove a specific node
   /// @brief Removes a node from the tree
   /// @param node Node to be removed
   void remove(BSTreeNode<DataType>* node) {
