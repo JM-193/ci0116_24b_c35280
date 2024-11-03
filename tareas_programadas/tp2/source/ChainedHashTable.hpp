@@ -43,17 +43,26 @@ class ChainedHashTable {
     }
   }
 
-  void insert(const DataType& value);
+  void insert(const DataType& value) {
+    size_t index = value % this->size;
+    this->table[index].insert(value);
+  }
 
-  DLListNode<DataType>* search(const DataType& value) const;
+  DLListNode<DataType>* search(const DataType& value) const {
+    size_t index = value % this->size;
+    return this->table[index].search(value);
+  }
 
-  void remove(const DataType& value);
+  void remove(const DataType& value) {
+    size_t index = value % this->size;
+    this->table[index].remove(value);
+  }
 
-  size_t getSize() const;
+  size_t getSize() const { return this->size; }
 
-  void setSize(size_t size);
+  void setSize(size_t size) { this->size = size; }
 
-  std::vector<DLList<DataType>> getTable() const;
+  std::vector<DLList<DataType>> getTable() const { return this->table; }
 
-  void setTable(std::vector<DLList<DataType>>);
+  void setTable(std::vector<DLList<DataType>>) { this->table = table; }
 };

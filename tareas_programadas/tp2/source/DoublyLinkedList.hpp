@@ -100,12 +100,8 @@ class DLList {
   /// Allows repeated elements
   /// @param value Value to be inserted
   void insert(const DataType& value) {
-    if (this->nil == nullptr) {
-        this->nil = new DLListNode<DataType>(value);
-    } else {
-        this->nil = new DLListNode<DataType>(value, this->nil);
-        this->nil->getNext()->setPrev(this->nil);
-    }
+    this->nil = new DLListNode<DataType>(value, this->nil);
+    this->nil->getNext()->setPrev(this->nil);
   }
 
   /// @brief Searches for a value in the list

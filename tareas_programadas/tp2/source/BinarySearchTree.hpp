@@ -407,7 +407,28 @@ class BSTree {
   /// @return Root of the tree
   BSTreeNode<DataType>* getRoot() const { return this->root; }
 
+  /// @brief Inserts n elements into the tree in ascending order
+  /// @param n Number of elements to insert
   void fastInsert(size_t n) {
-    // TODO(jm): ???
+    // Clear the tree
+    this->clear();
+    // If n is 0, return
+    if (n == 0) return;
+
+    // Create the nodes
+    BSTreeNode<DataType>* nodes = new BSTreeNode<DataType>[n];
+    for (size_t i = 0; i < n; ++i) {
+      nodes[i] = BSTreeNode<DataType>(i);
+    }
+
+    // Insert the nodes
+    this->root = nodes[0];
+    BSTreeNode<DataType>* current = this->root;
+    for (size_t i = 1; i < n; ++i) {
+      // Connect the nodes
+      current->setRight(nodes[i]);
+      nodes[i]->setParent(current);
+      current = current->getRight();
+    }
   }
 };
