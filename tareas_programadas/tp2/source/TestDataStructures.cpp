@@ -28,20 +28,20 @@ void generateRandomArray(std::array<int, len>& arr) {
   }
 }
 
-void testSLL(SLList<int>& sll, bool random,
+template<typename DataStructure>
+void testStructure(DataStructure& ds, bool random,
     std::array<int, arr_len>& insertArr,
     std::array<int, search_len>& searchArr,
     std::array<int, remove_len>& removeArr) {
   // Insertion
-  generateRandomArray(insertArr);
   auto startTimeI = std::chrono::high_resolution_clock::now();
   if (random) {
     for (const auto& value : insertArr) {
-      sll.insert(value);
+      ds.insert(value);
     }
   } else {
     for (std::size_t value = 0; value < arr_len; ++value) {
-      sll.insert(value);
+      ds.insert(value);
     }
   }
   auto endTimeI = std::chrono::high_resolution_clock::now();
@@ -49,27 +49,25 @@ void testSLL(SLList<int>& sll, bool random,
   std::cout << "\t\tInsertion: \t" << durationI.count() << " ms" << std::endl;
 
   // Search
-  generateRandomArray(searchArr);
   auto startTimeS = std::chrono::high_resolution_clock::now();
   for (const auto& value : searchArr) {
-    sll.search(value);
+    ds.search(value);
   }
   auto endTimeS = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double, std::micro> durationS = endTimeS - startTimeS;
   std::cout << "\t\tSearch: \t" << durationS.count() << " μs" << std::endl;
 
   // Removal
-  generateRandomArray(removeArr);
   auto startTimeR = std::chrono::high_resolution_clock::now();
   for (const auto& value : removeArr) {
-    sll.remove(value);
+    ds.remove(value);
   }
   auto endTimeR = std::chrono::high_resolution_clock::now();
   std::chrono::duration<double> durationR = endTimeR - startTimeR;
   std::cout << "\t\tRemoval: \t" << durationR.count() << " s" << std::endl;
 
   // Clear the list
-  sll.clear();
+  pthread_rwlock_destroy.clear();
 }
 
 int main() {
@@ -79,27 +77,36 @@ int main() {
   ChainedHashTable<int> cht(arr_len);
 
   std::array<int, arr_len> insertArr;
+  generateRandomArray(insertArr);
   std::array<int, search_len> searchArr;
+  generateRandomArray(searchArr);
   std::array<int, remove_len> removeArr;
+  generateRandomArray(removeArr);
 
   std::cout << "\nSingly Linked List: Random" << std::endl;
   for (std::size_t i = 0; i < runs; ++i) {
     std::cout << "\tRun " << i + 1 << ":" << std::endl;
-    testSLL(sll, /* random */ true, insertArr, searchArr, removeArr);
+    testStructure(sll, /* random */ true, insertArr, searchArr, removeArr);
   }
 
 
   std::cout << "\nSingly Linked List: Sorted" << std::endl;
   for (std::size_t i = 0; i < runs; ++i) {
     std::cout << "\tRun " << i + 1 << ":" << std::endl;
-    testSLL(sll, /* random */ false, insertArr, searchArr, removeArr);
+    testStructure(sll, /* random */ false, insertArr, searchArr, removeArr);
   }
 
   std::cout << "\nBinary Search Tree: Random" << std::endl;
-
+  for (std::size_t i = 0; i < runs; ++i) {
+    std::cout << "\tRun " << i + 1 << ":" << std::endl;
+    testStructure(bst, /* random */ true, insertArr, searchArr, removeArr);
+  }
 
   std::cout << "\nBinary Search Tree: Sorted" << std::endl;
-
+  for (std::size_t i = 0; i < runs; ++i) {
+    std::cout << "\tRun " << i + 1 << ":" << std::endl;
+    testStructure(bst, /* random */ true, insertArr, searchArr, removeArr);
+  }
 
   std::cout << "\nRed-Black Tree: Random" << std::endl;
 
