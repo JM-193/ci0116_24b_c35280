@@ -94,7 +94,7 @@ class SLList {
   /// Allows for repeated elements
   /// @param value Value to be inserted
   void insert(const DataType& value) {
-    this->nil = new SLListNode<DataType>(value, this->nil);;
+    this->nil = new SLListNode<DataType>(value, this->nil);
   }
 
   /// @brief Searches for a value in the list

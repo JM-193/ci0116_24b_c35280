@@ -351,6 +351,8 @@ class BSTree {
   /// @return Node with the given value or nullptr if it doesn't exist
   BSTreeNode<DataType>* search(const BSTreeNode<DataType>* rootOfSubtree,
                                const DataType &value) const {
+    // If the root is nullptr, return nullptr
+    if (rootOfSubtree == nullptr) return nullptr;
     // Start at the sub-tree root
     BSTreeNode<DataType>* current =
         const_cast<BSTreeNode<DataType>*>(rootOfSubtree);

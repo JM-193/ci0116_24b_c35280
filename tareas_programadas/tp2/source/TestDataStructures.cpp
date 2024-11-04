@@ -3,6 +3,7 @@
 #include <array>
 #include <chrono>
 #include <iostream>
+#include <fstream>
 #include <random>
 
 #include "BinarySearchTree.hpp"
@@ -17,6 +18,9 @@ constexpr std::size_t max = 3 * arr_len;
 constexpr std::size_t search_len = 10000;
 constexpr std::size_t remove_len = 10000;
 
+#define startTimer() auto startTime = std::chrono::high_resolution_clock::now();
+#define endTimer() auto endTime = std::chrono::high_resolution_clock::now();
+
 template<std::size_t len>
 void generateRandomArray(std::array<int, len>& arr) {
   std::random_device rd;
@@ -28,49 +32,105 @@ void generateRandomArray(std::array<int, len>& arr) {
   }
 }
 
+void testInsert(SLList<int>& sll, bool random,
+    std::array<int, arr_len>& insertArr, std::ostream*& resultStream) {
+  startTimer()
+  if (random) {
+    for (const auto& value : insertArr)
+      sll.insert(value);
+  } else {
+    for (std::size_t value = 0; value < arr_len; ++value)
+      sll.insert(value);
+  }
+  endTimer()
+  std::chrono::duration<double, std::milli> duration = endTime - startTime;
+  *resultStream << "\t\tInsertion: \t" << duration.count() << " ms" << std::endl;
+}
+
+void testInsert(BSTree<int>& bst, bool random,
+    std::array<int, arr_len>& insertArr, std::ostream*& resultStream) {
+  startTimer()
+  if (random) {
+    for (const auto& value : insertArr)
+      bst.insert(value);
+  } else {
+    bst.fastInsert(arr_len);
+  }
+  endTimer()
+  std::chrono::duration<double, std::milli> duration = endTime - startTime;
+  *resultStream << "\t\tInsertion: \t" << duration.count() << " ms" << std::endl;
+}
+
 template<typename DataStructure>
-void testStructure(DataStructure& ds, bool random,
+void testSearch(DataStructure& ds, std::array<int, search_len>& searchArr,
+    std::ostream*& resultStream) {
+  startTimer()
+  for (const auto& value : searchArr) {
+    ds.search(value);
+  }
+  endTimer()
+  std::chrono::duration<double, std::nano> duration = endTime - startTime;
+  *resultStream << "\t\tSearch: \t" << duration.count() << " ns" << std::endl;
+}
+
+template<typename DataStructure>
+void testRemove(DataStructure& ds, std::array<int, remove_len>& removeArr,
+    std::ostream*& resultStream) {
+  startTimer()
+  for (const auto& value : removeArr) {
+    ds.remove(value);
+  }
+  endTimer()
+  std::chrono::duration<double, std::milli> duration = endTime - startTime;
+  double finalDuration = duration.count() > 1000 ?
+      duration.count() / 1000 : duration.count();
+  std::string unit = duration.count() > 1000 ? " s" : " ms";
+  *resultStream << "\t\tRemoval: \t" << finalDuration << unit << std::endl;
+}
+
+template<typename DataStructure>
+void testStructure(DataStructure& ds, bool random, std::ostream*& resultStream,
     std::array<int, arr_len>& insertArr,
     std::array<int, search_len>& searchArr,
     std::array<int, remove_len>& removeArr) {
   // Insertion
-  auto startTimeI = std::chrono::high_resolution_clock::now();
-  if (random) {
-    for (const auto& value : insertArr) {
-      ds.insert(value);
-    }
-  } else {
-    for (std::size_t value = 0; value < arr_len; ++value) {
-      ds.insert(value);
-    }
-  }
-  auto endTimeI = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double, std::milli> durationI = endTimeI - startTimeI;
-  std::cout << "\t\tInsertion: \t" << durationI.count() << " ms" << std::endl;
+  testInsert(ds, random, insertArr, resultStream);
 
   // Search
-  auto startTimeS = std::chrono::high_resolution_clock::now();
-  for (const auto& value : searchArr) {
-    ds.search(value);
-  }
-  auto endTimeS = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double, std::micro> durationS = endTimeS - startTimeS;
-  std::cout << "\t\tSearch: \t" << durationS.count() << " μs" << std::endl;
+  testSearch(ds, searchArr, resultStream);
 
   // Removal
-  auto startTimeR = std::chrono::high_resolution_clock::now();
-  for (const auto& value : removeArr) {
-    ds.remove(value);
-  }
-  auto endTimeR = std::chrono::high_resolution_clock::now();
-  std::chrono::duration<double> durationR = endTimeR - startTimeR;
-  std::cout << "\t\tRemoval: \t" << durationR.count() << " s" << std::endl;
+  testRemove(ds, removeArr, resultStream);
 
   // Clear the list
-  pthread_rwlock_destroy.clear();
+  ds.clear();
+}
+
+void getResultStream(bool writeToFile, std::ostream*& resultStream) {
+  if (writeToFile) {
+    // Open the file to write the results
+    std::ofstream resultsFile;
+    resultsFile.open("results.txt", std::ios::out);
+    if (!resultsFile.is_open()) {
+      std::cerr << "Error: Could not open the file to write the results, "
+                << "using standard output" << std::endl;
+      resultStream = &std::cout;
+      return;
+    }
+    // Assign the file stream to the result stream
+    resultStream = &resultsFile;
+  } else {
+    // Assign the standard output to the result stream
+    resultStream = &std::cout;
+  }
 }
 
 int main() {
+  // Want to write to results file or the standard output?
+  const bool writeToFile = false;
+  std::ostream* resultStream;
+  getResultStream(writeToFile, resultStream);
+
   SLList<int> sll;
   BSTree<int> bst;
   RBTree<int> rbt;
@@ -83,41 +143,44 @@ int main() {
   std::array<int, remove_len> removeArr;
   generateRandomArray(removeArr);
 
-  std::cout << "\nSingly Linked List: Random" << std::endl;
+  *resultStream << "\nSingly Linked List: Random" << std::endl;
   for (std::size_t i = 0; i < runs; ++i) {
-    std::cout << "\tRun " << i + 1 << ":" << std::endl;
-    testStructure(sll, /* random */ true, insertArr, searchArr, removeArr);
+    *resultStream << "\tRun " << i + 1 << ":" << std::endl;
+    testStructure(sll, /* random */ true, resultStream,
+        insertArr, searchArr, removeArr);
   }
 
-
-  std::cout << "\nSingly Linked List: Sorted" << std::endl;
+  *resultStream << "\nSingly Linked List: Sorted" << std::endl;
   for (std::size_t i = 0; i < runs; ++i) {
-    std::cout << "\tRun " << i + 1 << ":" << std::endl;
-    testStructure(sll, /* random */ false, insertArr, searchArr, removeArr);
+    *resultStream << "\tRun " << i + 1 << ":" << std::endl;
+    testStructure(sll, /* random */ false, resultStream,
+        insertArr, searchArr, removeArr);
   }
 
-  std::cout << "\nBinary Search Tree: Random" << std::endl;
+  *resultStream << "\nBinary Search Tree: Random" << std::endl;
   for (std::size_t i = 0; i < runs; ++i) {
-    std::cout << "\tRun " << i + 1 << ":" << std::endl;
-    testStructure(bst, /* random */ true, insertArr, searchArr, removeArr);
+    *resultStream << "\tRun " << i + 1 << ":" << std::endl;
+    testStructure(bst, /* random */ true, resultStream,
+        insertArr, searchArr, removeArr);
   }
 
-  std::cout << "\nBinary Search Tree: Sorted" << std::endl;
+  *resultStream << "\nBinary Search Tree: Sorted" << std::endl;
   for (std::size_t i = 0; i < runs; ++i) {
-    std::cout << "\tRun " << i + 1 << ":" << std::endl;
-    testStructure(bst, /* random */ true, insertArr, searchArr, removeArr);
+    *resultStream << "\tRun " << i + 1 << ":" << std::endl;
+    testStructure(bst, /* random */ false, resultStream,
+        insertArr, searchArr, removeArr);
   }
 
-  std::cout << "\nRed-Black Tree: Random" << std::endl;
+  *resultStream << "\nRed-Black Tree: Random" << std::endl;
 
 
-  std::cout << "\nRed-Black Tree: Sorted" << std::endl;
+  *resultStream << "\nRed-Black Tree: Sorted" << std::endl;
 
 
-  std::cout << "\nChained Hash Table: Random" << std::endl;
+  *resultStream << "\nChained Hash Table: Random" << std::endl;
 
 
-  std::cout << "\nChained Hash Table: Sorted" << std::endl;
+  *resultStream << "\nChained Hash Table: Sorted" << std::endl;
 
 
   return EXIT_SUCCESS;
