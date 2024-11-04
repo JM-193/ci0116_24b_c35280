@@ -120,11 +120,21 @@ class BSTree {
   void clear(BSTreeNode<DataType>* rootOfSubtree) {
     // If the subtree is empty, return
     if (rootOfSubtree == nullptr) return;
-    // Clear the left and right subtrees
-    clear(rootOfSubtree->getLeft());
-    clear(rootOfSubtree->getRight());
-    // Delete the node
-    delete rootOfSubtree;
+    // Create a stack to store the nodes
+    std::stack<BSTreeNode<DataType>*> stack;
+    // Push the root of the subtree onto the stack
+    stack.push(rootOfSubtree);
+    // While the stack is not empty
+    while (!stack.empty()) {
+      // Pop the top node from the stack
+      BSTreeNode<DataType>* current = stack.top();
+      stack.pop();
+      // Push the left and right children onto the stack if they exist
+      if (current->getLeft() != nullptr) stack.push(current->getLeft());
+      if (current->getRight() != nullptr) stack.push(current->getRight());
+      // Delete the current node
+      delete current;
+    }
   }
 
  public:
@@ -328,6 +338,14 @@ class BSTree {
   }
 
   /// @brief Searches for a node with the given value
+  /// @param value Value to search for
+  /// @return Node with the given value or nullptr if it doesn't exist
+  BSTreeNode<DataType>* search(const DataType &value) const {
+    return search(this->root, value);
+  }
+
+ private:  // Search from a specific node
+  /// @brief Searches for a node with the given value
   /// @param rootOfSubtree Root of the subtree to search
   /// @param value Value to search for
   /// @return Node with the given value or nullptr if it doesn't exist
@@ -348,6 +366,7 @@ class BSTree {
     return current;
   }
 
+ public:
   /// @brief Returns the minimum node in the subtree
   /// @param rootOfSubtree Root of the subtree
   /// @return Minimum node in the subtree or nullptr if it's empty
