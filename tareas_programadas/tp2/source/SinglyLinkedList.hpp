@@ -101,28 +101,16 @@ class SLList {
   /// @param value Value to be searched
   /// @param prev Reference to return the previous node by parameter
   /// @return The first node with the value or nullptr if not found
-  SLListNode<DataType>* search(const DataType& value,
-      SLListNode<DataType>*& prev) const {
+  SLListNode<DataType>* search(const DataType& value) const {
     // Node pointers
-    prev = nullptr;
     SLListNode<DataType>* current = this->nil;
     // Search for the value
     while (current != nullptr && current->getKey() != value) {
-      // Move to the next node, updating prev as well
-      prev = current;
+      // Move to the next node
       current = current->getNext();
     }
     // Return the node or nullptr if not found
     return current;
-  }
-
-  /// @brief Searches for a value in the list
-  /// @param value Value to be searched
-  /// @return The first node with the value or nullptr if not found
-  SLListNode<DataType>* search(const DataType& value) const {
-    // Use the search function with a nullptr prev
-    SLListNode<DataType>* prev = nullptr;
-    return search(value, prev);
   }
 
   /// @brief Removes every occurrence of a value in the list
