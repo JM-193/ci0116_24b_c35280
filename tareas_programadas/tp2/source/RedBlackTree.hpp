@@ -205,7 +205,7 @@ class RBTree {
 
   /// @brief Section of the insert fixup if the parent is the right child
   /// @param node Node to start the fixup
-  void rightInsertFixup(RBTreeNode<DataType*> node) {
+  void rightInsertFixup(RBTreeNode<DataType>* node) {
     // Get the uncle
     RBTreeNode<DataType>* uncle = node->getParent()->getParent()->getLeft();
     // Case 1: The uncle is red
@@ -439,7 +439,6 @@ class RBTree {
     v->setParent(u->getParent());
   }
 
- public:
   /// @brief Search for a node with the given value
   /// @param rootOfSubtree Root of the subtree to search
   /// @param value Value to search for
@@ -460,6 +459,14 @@ class RBTree {
     }
     // Return the node or nullptr if it doesn't exist
     return current;
+  }
+
+ public:
+  /// @brief Search for a node with the given value
+  /// @param value Value to search for
+  /// @return Node with the given value or nullptr if it doesn't exist
+  RBTreeNode<DataType>* search(const DataType &value) const {
+    return search(this->root, value);
   }
 
   /// @brief Get the minimum node in the subtree
