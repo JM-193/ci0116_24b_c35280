@@ -334,6 +334,9 @@ class RBTree {
     if (originalColor == BLACK) {
       this->removeFixup(child);
     }
+
+    // Delete the node
+    delete node;
   }
 
   /// @brief Fix the tree after removing a node

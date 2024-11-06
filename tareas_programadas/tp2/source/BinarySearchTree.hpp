@@ -213,6 +213,9 @@ class BSTree {
       successor->setLeft(node->getLeft());
       successor->getLeft()->setParent(successor);
     }
+
+    // Delete the node
+    delete node;
   }
 
   /// @brief Replace the node u with the node v
