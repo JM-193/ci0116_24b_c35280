@@ -86,6 +86,7 @@ class BSTreeNode {
 template <typename DataType>
 class BSTree {
  private:
+  /// @brief Root of the tree
   BSTreeNode<DataType>* root = nullptr;
 
  public:
