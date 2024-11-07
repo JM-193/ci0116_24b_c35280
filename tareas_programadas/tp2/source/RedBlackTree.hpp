@@ -90,9 +90,15 @@ class RBTree {
 
  public:
   /// @brief Default constructor
-  RBTree() : nil(new RBTreeNode<DataType>()) {}
+  RBTree() : nil(new RBTreeNode<DataType>()) {
+    this->root = this->nil;
+  }
   /// @brief Destructor
-  ~RBTree() { this->clear(); }
+  ~RBTree() {
+    this->clear();
+    // Delete the nil node
+    delete this->nil;
+  }
 
   // Rule of five
   /// @brief Deleted copy constructor
@@ -107,13 +113,11 @@ class RBTree {
   /// @brief Clear the tree
   void clear() {
     // If the tree is empty, return
-    if (this->root == nullptr) return;
+    if (this->root == this->nil) return;
     // Clear the tree
     clear(this->root);
-    // Delete the nil node
-    delete this->nil;
-    // Set the root to nullptr
-    this->root = nullptr;
+    // Set the root to nil
+    this->root = this->nil;
   }
 
  private:  // Clear the tree from a specific node
@@ -135,24 +139,23 @@ class RBTree {
   void insert(const DataType &value) {
     // Start searching for the insertion point
     RBTreeNode<DataType>* current = this->root;
-    while (current && current != this->nil) {
+    RBTreeNode<DataType>* parent = this->nil;
+    while (current != this->nil) {
+      parent = current;
       if (value < current->getKey()) {
         current = current->getLeft();
       } else {
         current = current->getRight();
       }
     }
-    // The tree is empty, insert as the root (which is black)
-    if (current->getParent() == this->nil) {
-      this->root = new RBTreeNode<DataType>(value, this->nil, this->nil,
-                                            this->nil, BLACK);
-      return;
-    }
     // Create the new node
-    auto newNode = new RBTreeNode<DataType>(value, current->getParent(),
+    auto newNode = new RBTreeNode<DataType>(value, parent,
                                             this->nil, this->nil, RED);
     // Insert the new node
-    if (value < current->getKey()) {
+    if (parent == this->nil) {
+      // The tree is empty, insert as the root (which is black)
+      this->root = newNode;
+    } else if (value < current->getKey()) {
       current->setLeft(newNode);
     } else {
       current->setRight(newNode);
@@ -284,7 +287,7 @@ class RBTree {
     // Search for the node to remove
     RBTreeNode<DataType>* node = search(this->root, value);
     // If the node doesn't exist, return
-    if (node == nullptr) return;
+    if (node == this->nil) return;
     // Remove the node
     this->remove(node);
   }
@@ -298,7 +301,7 @@ class RBTree {
     // Save the original color
     enum colors originalColor = original->color;
     // Child node to replace the original
-    RBTreeNode<DataType>* child = nullptr;
+    RBTreeNode<DataType>* child = this->nil;
     if (node->getLeft() == this->nil) {
       // If the left child is nil, replace the node with the right child
       child = node->getRight();
@@ -439,50 +442,50 @@ class RBTree {
       u->getParent()->setRight(v);
     }
     // Update the parent of v
-    v->setParent(u->getParent());
+    if (v != this->nil) v->setParent(u->getParent());
   }
 
   /// @brief Search for a node with the given value
   /// @param rootOfSubtree Root of the subtree to search
   /// @param value Value to search for
-  /// @return Node with the given value or nullptr if it doesn't exist
+  /// @return Node with the given value or nil if it doesn't exist
   RBTreeNode<DataType>* search(const RBTreeNode<DataType>* rootOfSubtree,
                                const DataType &value) const {
-    // If the subtree is empty, return nullptr
-    if (rootOfSubtree == nullptr) return nullptr;
+    // If the subtree is empty, return nil
+    if (rootOfSubtree == nullptr) return this->nil;
     // Search for the node with the given value
     RBTreeNode<DataType>* current =
         const_cast<RBTreeNode<DataType>*>(rootOfSubtree);
-    while (current && current->getKey() != value) {
+    while (current != this->nil && current->getKey() != value) {
       if (value < current->getKey()) {
         current = current->getLeft();
       } else {
         current = current->getRight();
       }
     }
-    // Return the node or nullptr if it doesn't exist
+    // Return the node or nil if it doesn't exist
     return current;
   }
 
  public:
   /// @brief Search for a node with the given value
   /// @param value Value to search for
-  /// @return Node with the given value or nullptr if it doesn't exist
+  /// @return Node with the given value or nil if it doesn't exist
   RBTreeNode<DataType>* search(const DataType &value) const {
     return search(this->root, value);
   }
 
   /// @brief Get the minimum node in the subtree
   /// @param rootOfSubtree Root of the subtree
-  /// @return Minimum node in the subtree or nullptr if it's empty
+  /// @return Minimum node in the subtree or nil if it's empty
   RBTreeNode<DataType>* getMinimum(
       const RBTreeNode<DataType>* rootOfSubtree) const {
-    // If the subtree is empty, return nullptr
-    if (rootOfSubtree == nullptr) return nullptr;
+    // If the subtree is empty, return nil
+    if (rootOfSubtree == nullptr) return this->nil;
     // Search for the minimum node in the subtree
     RBTreeNode<DataType>* current =
         const_cast<RBTreeNode<DataType>*>(rootOfSubtree);
-    while (current && current->getLeft() != nullptr) {
+    while (current != this-> nil && current->getLeft() != this->nil) {
       current = current->getLeft();
     }
     // Return the minimum node
@@ -491,15 +494,15 @@ class RBTree {
 
   /// @brief Get the maximum node in the subtree
   /// @param rootOfSubtree Root of the subtree
-  /// @return Maximum node in the subtree or nullptr if it's empty
+  /// @return Maximum node in the subtree or nil if it's empty
   RBTreeNode<DataType>* getMaximum(
       const RBTreeNode<DataType>* rootOfSubtree) const {
-    // If the subtree is empty, return nullptr
-    if (rootOfSubtree == nullptr) return nullptr;
+    // If the subtree is empty, return nil
+    if (rootOfSubtree == nullptr) return this->nil;
     // Search for the maximum node in the subtree
     RBTreeNode<DataType>* current =
         const_cast<RBTreeNode<DataType>*>(rootOfSubtree);
-    while (current && current->getRight() != nullptr) {
+    while (current != this-> nil && current->getRight() != this->nil) {
       current = current->getRight();
     }
     // Return the maximum node
@@ -508,22 +511,22 @@ class RBTree {
 
   /// @brief Get the successor of the given node
   /// @param node Node to get the successor of
-  /// @return Successor of the node or nullptr if it doesn't exist
+  /// @return Successor of the node or nil if it doesn't exist
   RBTreeNode<DataType>* getSuccessor(const RBTreeNode<DataType>* node) const {
-    // If the node is nullptr, return nullptr
-    if (node == nullptr) return nullptr;
+    // If the node is nullptr, return nil
+    if (node == nullptr) return this->nil;
     // If there's a right child, the successor is the min of the right subtree
-    if (node->getRight() != nullptr) {
+    if (node->getRight() != this->nil) {
       return getMinimum(node->getRight());
     }
     // Otherwise, go up until we find a node that is a left child
     RBTreeNode<DataType>* current = node->getParent();
     RBTreeNode<DataType>* child = const_cast<RBTreeNode<DataType>*>(node);
-    while (current != nullptr && child == current->getRight()) {
+    while (current != this->nil && child == current->getRight()) {
       child = current;
       current = current->getParent();
     }
-    // Return the successor or nullptr if it doesn't exist
+    // Return the successor or nil if it doesn't exist
     return current;
   }
 
