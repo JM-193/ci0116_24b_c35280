@@ -11,16 +11,11 @@
 /// @param cht Chained Hash Table to test
 /// @param random True if the values should be inserted randomly
 /// @param insertArr Array of values to insert
-void testInsert(ChainedHashTable<int>& cht, bool random,
+void testInsert(ChainedHashTable<int>& cht,
     std::array<int, insert_len>& insertArr) {
   startTimer()
-  if (random) {
-    for (const auto& value : insertArr)
-      cht.insert(value);
-  } else {
-    for (std::size_t value = 0; value < insert_len; ++value)
-      cht.insert(value);
-  }
+  for (const auto& value : insertArr)
+    cht.insert(value);
   endTimer()
   std::cout << "\t\tInsertion: \t" << getDuration(startTime, endTime)
                 << std::endl;
@@ -57,9 +52,11 @@ void testRemove(ChainedHashTable<int>& cht,
 /// @brief Test the Chained Hash Table with the given parameters
 /// @param random True if the data should be inserted randomly
 /// @param insertArr Array of values to insert
+/// @param insertArrSorted Array of sorted values to insert
 /// @param searchArr Array of values to search
 /// @param removeArr Array of values to remove
 void testCHT(bool random, std::array<int, insert_len>& insertArr,
+    std::array<int, insert_len>& insertArrSorted,
     std::array<int, search_len>& searchArr,
     std::array<int, remove_len>& removeArr) {
   // Chained Hash Table
@@ -68,7 +65,7 @@ void testCHT(bool random, std::array<int, insert_len>& insertArr,
   for (std::size_t i = 0; i < runs; ++i) {
     std::cout << "\tRun " << i + 1 << ":" << std::endl;
     // Insertion
-    testInsert(*cht, random, insertArr);
+    testInsert(*cht, random ? insertArr : insertArrSorted);
 
     // Search
     testSearch(*cht, searchArr);

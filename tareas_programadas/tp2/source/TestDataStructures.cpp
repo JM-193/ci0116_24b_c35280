@@ -25,12 +25,23 @@ void generateRandomArray(std::array<int, len>& arr) {
   }
 }
 
+/// @brief Generates a sorted array of integers
+/// @param arr Array to fill with sorted integers
+template<std::size_t len>
+void generateSortedArray(std::array<int, len>& arr) {
+  for (std::size_t index = 0; index < len; ++index) {
+    arr[index] = index;
+  }
+}
+
 /// @brief Main functions
 /// @return EXIT_SUCCESS if the program ends successfully
 int main() {
   // Random arrays to test the data structures
   std::array<int, insert_len> insertArr;
   generateRandomArray(insertArr);
+  std::array<int, insert_len> insertArrSorted;
+  generateSortedArray(insertArrSorted);
   std::array<int, search_len> searchArr;
   generateRandomArray(searchArr);
   std::array<int, remove_len> removeArr;
@@ -38,11 +49,11 @@ int main() {
 
   // SLL Sorted
   std::cout << "\nSingly Linked List: Sorted" << std::endl;
-  testSLL(/* random */ false, insertArr, searchArr, removeArr);
+  testSLL(/* random */ false, insertArr, insertArrSorted, searchArr, removeArr);
 
   // SLL Random
   std::cout << "\nSingly Linked List: Random" << std::endl;
-  testSLL(/* random */ true, insertArr, searchArr, removeArr);
+  testSLL(/* random */ true, insertArr, insertArrSorted, searchArr, removeArr);
 
   // BST Sorted
   std::cout << "\nBinary Search Tree: Sorted" << std::endl;
@@ -54,19 +65,19 @@ int main() {
 
   // RBT Sorted
   std::cout << "\nRed-Black Tree: Sorted" << std::endl;
-  testRBT(/* random */ false, insertArr, searchArr, removeArr);
+  testRBT(/* random */ false, insertArr, insertArrSorted, searchArr, removeArr);
 
   // RBT Random
   std::cout << "\nRed-Black Tree: Random" << std::endl;
-  testRBT(/* random */ true, insertArr, searchArr, removeArr);
+  testRBT(/* random */ true, insertArr, insertArrSorted, searchArr, removeArr);
 
   // CHT Sorted
   std::cout << "\nChained Hash Table: Sorted" << std::endl;
-  testCHT(/* random */ false, insertArr, searchArr, removeArr);
+  testCHT(/* random */ false, insertArr, insertArrSorted, searchArr, removeArr);
 
   // CHT Random
   std::cout << "\nChained Hash Table: Random" << std::endl;
-  testCHT(/* random */ true, insertArr, searchArr, removeArr);
+  testCHT(/* random */ true, insertArr, insertArrSorted, searchArr, removeArr);
 
   return EXIT_SUCCESS;
 }

@@ -11,16 +11,10 @@
 /// @param rbt Red-Black Tree to test
 /// @param random True if the values should be inserted randomly
 /// @param insertArr Array of values to insert
-void testInsert(RBTree<int>& rbt, bool random,
-    std::array<int, insert_len>& insertArr) {
+void testInsert(RBTree<int>& rbt, std::array<int, insert_len>& insertArr) {
   startTimer()
-  if (random) {
-    for (const auto& value : insertArr)
-      rbt.insert(value);
-  } else {
-    for (std::size_t value = 0; value < insert_len; ++value)
-      rbt.insert(value);
-  }
+  for (const auto& value : insertArr)
+    rbt.insert(value);
   endTimer()
   std::cout << "\t\tInsertion: \t" << getDuration(startTime, endTime)
                 << std::endl;
@@ -55,9 +49,11 @@ void testRemove(RBTree<int>& rbt, std::array<int, remove_len>& removeArr) {
 /// @brief Test the Red-Black Tree with the given parameters
 /// @param random True if the data should be inserted randomly
 /// @param insertArr Array of values to insert
+/// @param insertArrSorted Array of sorted values to insert
 /// @param searchArr Array of values to search
 /// @param removeArr Array of values to remove
 void testRBT(bool random, std::array<int, insert_len>& insertArr,
+    std::array<int, insert_len>& insertArrSorted,
     std::array<int, search_len>& searchArr,
     std::array<int, remove_len>& removeArr) {
   // Red-Black Tree
@@ -66,7 +62,7 @@ void testRBT(bool random, std::array<int, insert_len>& insertArr,
   for (std::size_t i = 0; i < runs; ++i) {
     std::cout << "\tRun " << i + 1 << ":" << std::endl;
     // Insertion
-    testInsert(*rbt, random, insertArr);
+    testInsert(*rbt, random ? insertArr : insertArrSorted);
 
     // Search
     testSearch(*rbt, searchArr);
