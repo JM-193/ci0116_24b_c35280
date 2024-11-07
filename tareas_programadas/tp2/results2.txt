@@ -1,111 +1,111 @@
 Singly Linked List: Sorted
 	Run 1:
 		Insertion: 	41.349686 ms
-		Search: 		31.441881 s
-		Removal: 		38.393468 s
+		Search: 	31.441881 s
+		Removal: 	38.393468 s
 	Run 2:
 		Insertion: 	14.876136 ms
-		Search: 		58.650352 s
-		Removal: 		65.502098 s
+		Search: 	58.650352 s
+		Removal: 	65.502098 s
 	Run 3:
 		Insertion: 	16.703360 ms
-		Search: 		35.961206 s
-		Removal: 		43.053424 s
+		Search: 	35.961206 s
+		Removal: 	43.053424 s
 
 Singly Linked List: Random
 	Run 1:
 		Insertion: 	16.664912 ms
-		Search: 		51.820241 s
-		Removal: 		62.509503 s
+		Search: 	51.820241 s
+		Removal: 	62.509503 s
 	Run 2:
 		Insertion: 	22.662196 ms
-		Search: 		44.251208 s
-		Removal: 		50.877970 s
+		Search: 	44.251208 s
+		Removal: 	50.877970 s
 	Run 3:
 		Insertion: 	17.346922 ms
-		Search: 		55.302635 s
-		Removal: 		62.082331 s
+		Search: 	55.302635 s
+		Removal: 	62.082331 s
 
 Binary Search Tree: Sorted
 	Run 1:
 		Insertion: 	42.179967 ms
-		Search: 		42.026249 s
-		Removal: 		42.283826 s
+		Search: 	42.026249 s
+		Removal: 	42.283826 s
 	Run 2:
 		Insertion: 	17.222369 ms
-		Search: 		66.401825 s
-		Removal: 		66.735460 s
+		Search: 	66.401825 s
+		Removal: 	66.735460 s
 	Run 3:
 		Insertion: 	17.843612 ms
-		Search: 		46.770036 s
-		Removal: 		48.846209 s
+		Search: 	46.770036 s
+		Removal: 	48.846209 s
 
 Binary Search Tree: Random
 	Run 1:
 		Insertion: 	948.991978 ms
-		Search: 		12.061859 ms
-		Removal: 		12.860216 ms
+		Search: 	12.061859 ms
+		Removal: 	12.860216 ms
 	Run 2:
 		Insertion: 	1.323758 s
-		Search: 		14.881885 ms
-		Removal: 		15.161674 ms
+		Search: 	14.881885 ms
+		Removal: 	15.161674 ms
 	Run 3:
 		Insertion: 	1.325458 s
-		Search: 		14.856047 ms
-		Removal: 		15.041787 ms
+		Search: 	14.856047 ms
+		Removal: 	15.041787 ms
 
 Red-Black Tree: Sorted
 	Run 1:
 		Insertion: 	147.819088 ms
-		Search: 		121.747000 μs
-		Removal: 		124.577000 μs
+		Search: 	121.747000 μs
+		Removal: 	124.577000 μs
 	Run 2:
 		Insertion: 	58.597118 ms
-		Search: 		118.351000 μs
-		Removal: 		119.351000 μs
+		Search: 	118.351000 μs
+		Removal: 	119.351000 μs
 	Run 3:
 		Insertion: 	57.486699 ms
-		Search: 		118.328000 μs
-		Removal: 		122.962000 μs
+		Search: 	118.328000 μs
+		Removal: 	122.962000 μs
 
 Red-Black Tree: Random
 	Run 1:
 		Insertion: 	57.786139 ms
-		Search: 		126.177000 μs
-		Removal: 		130.147000 μs
+		Search: 	126.177000 μs
+		Removal: 	130.147000 μs
 	Run 2:
 		Insertion: 	57.096395 ms
-		Search: 		128.269000 μs
-		Removal: 		125.651000 μs
+		Search: 	128.269000 μs
+		Removal: 	125.651000 μs
 	Run 3:
 		Insertion: 	57.196461 ms
-		Search: 		126.576000 μs
-		Removal: 		157.929000 μs
+		Search: 	126.576000 μs
+		Removal: 	157.929000 μs
 
 Chained Hash Table: Sorted
 	Run 1:
 		Insertion: 	41.452073 ms
-		Search: 		668.992000 μs
-		Removal: 		891.896000 μs
+		Search: 	668.992000 μs
+		Removal: 	891.896000 μs
 	Run 2:
 		Insertion: 	20.952285 ms
-		Search: 		700.185000 μs
-		Removal: 		880.873000 μs
+		Search: 	700.185000 μs
+		Removal: 	880.873000 μs
 	Run 3:
 		Insertion: 	20.789374 ms
-		Search: 		688.095000 μs
-		Removal: 		821.443000 μs
+		Search: 	688.095000 μs
+		Removal: 	821.443000 μs
 
 Chained Hash Table: Random
 	Run 1:
 		Insertion: 	63.422457 ms
-		Search: 		787.287000 μs
-		Removal: 		1.021259 ms
+		Search: 	787.287000 μs
+		Removal: 	1.021259 ms
 	Run 2:
 		Insertion: 	190.691821 ms
-		Search: 		991.527000 μs
-		Removal: 		1.251252 ms
+		Search: 	991.527000 μs
+		Removal: 	1.251252 ms
 	Run 3:
 		Insertion: 	189.247149 ms
-		Search: 		1.075165 ms
-		Removal: 		1.250634 ms
+		Search: 	1.075165 ms
+		Removal: 	1.250634 ms
