@@ -100,8 +100,10 @@ class DLList {
   /// Allows repeated elements
   /// @param value Value to be inserted
   void insert(const DataType& value) {
+    // Insert at the front
     this->nil = new DLListNode<DataType>(value, this->nil);
-    this->nil->getNext()->setPrev(this->nil);
+    // Update the previous pointer of the next node if it exists
+    if (this->nil->getNext()) this->nil->getNext()->setPrev(this->nil);
   }
 
   /// @brief Searches for a value in the list
@@ -118,13 +120,21 @@ class DLList {
   /// @brief Removes every node with the given value from the list
   /// @param value Value to be removed
   void remove(const DataType& value) {
-    while (true) {
-      DLListNode<DataType>* current = this->search(value);
-      if (current == nullptr) {
-        break;
-      } else {
-        this->remove(current);
-      }
+    // Node pointers
+    DLListNode<DataType>* current = this->nil;
+    // Search for the value
+    while (current) {
+      // Remove the node if the key matches
+      if (current->getKey() == value) {
+        // Node to remove
+        DLListNode<DataType>* nodeToRemove = current;
+        // Update the current node
+        current = current->getNext();
+        // Remove the node
+        this->remove(nodeToRemove);
+      } else
+        // Move to the next node
+        current = current->getNext();
     }
   }
 
@@ -136,16 +146,17 @@ class DLList {
     if (node == nullptr) return;
 
     // Node removal
-    if (node->getPrev() != nullptr) {
+    if (node->getPrev()) {
       // Update the previous node's next pointer
       node->getPrev()->setNext(node->getNext());
-      // Update the next node's previous pointer if necessary
-      if (node->getNext() != nullptr) {
-        node->getNext()->setPrev(node->getPrev());
-      }
     } else {
       // Update nil if removing the first node
       this->nil = node->getNext();
+    }
+
+    // Update the next node's previous pointer if necessary
+    if (node->getNext()) {
+      node->getNext()->setPrev(node->getPrev());
     }
 
     // Free the memory of the removed node

@@ -89,5 +89,5 @@ class ChainedHashTable {
 
   /// @brief Setter for the hash table
   /// @param table New hash table
-  void setTable(std::vector<DLList<DataType>>) { this->table = table; }
+  void setTable(std::vector<DLList<DataType>> table) { this->table = table; }
 };

@@ -63,37 +63,37 @@ int main() {
   std::array<int, remove_len> removeArr;
   generateRandomArray(removeArr);
 
-  // SLL Random
-  *resultStream << "\nSingly Linked List: Random" << std::endl;
-  testSLL(/* random */ true, resultStream, insertArr, searchArr, removeArr);
-
   // SLL Sorted
   *resultStream << "\nSingly Linked List: Sorted" << std::endl;
   testSLL(/* random */ false, resultStream, insertArr, searchArr, removeArr);
 
-  // BST Random
-  *resultStream << "\nBinary Search Tree: Random" << std::endl;
-  testBST(/* random */ true, resultStream, insertArr, searchArr, removeArr);
+  // SLL Random
+  *resultStream << "\nSingly Linked List: Random" << std::endl;
+  testSLL(/* random */ true, resultStream, insertArr, searchArr, removeArr);
 
   // BST Sorted
   *resultStream << "\nBinary Search Tree: Sorted" << std::endl;
   testBST(/* random */ false, resultStream, insertArr, searchArr, removeArr);
 
-  // RBT Random
-  *resultStream << "\nRed-Black Tree: Random" << std::endl;
-  testRBT(/* random */ true, resultStream, insertArr, searchArr, removeArr);
+  // BST Random
+  *resultStream << "\nBinary Search Tree: Random" << std::endl;
+  testBST(/* random */ true, resultStream, insertArr, searchArr, removeArr);
 
   // RBT Sorted
   *resultStream << "\nRed-Black Tree: Sorted" << std::endl;
   testRBT(/* random */ false, resultStream, insertArr, searchArr, removeArr);
 
-  // CHT Random
-  *resultStream << "\nChained Hash Table: Random" << std::endl;
-  testCHT(/* random */ true, resultStream, insertArr, searchArr, removeArr);
+  // RBT Random
+  *resultStream << "\nRed-Black Tree: Random" << std::endl;
+  testRBT(/* random */ true, resultStream, insertArr, searchArr, removeArr);
 
   // CHT Sorted
   *resultStream << "\nChained Hash Table: Sorted" << std::endl;
   testCHT(/* random */ false, resultStream, insertArr, searchArr, removeArr);
+
+  // CHT Random
+  *resultStream << "\nChained Hash Table: Random" << std::endl;
+  testCHT(/* random */ true, resultStream, insertArr, searchArr, removeArr);
 
   return EXIT_SUCCESS;
 }
