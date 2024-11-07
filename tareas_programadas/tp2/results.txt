@@ -1,0 +1,111 @@
+Singly Linked List: Sorted
+	Run 1:
+		Insertion: 	40.044737 ms
+		Search:		 	42.000000 ns
+		Removal: 		33.383131 s
+	Run 2:
+		Insertion: 	10.705034 ms
+		Search:		 	36.000000 ns
+		Removal: 		58.957564 s
+	Run 3:
+		Insertion: 	11.086092 ms
+		Search:		 	37.000000 ns
+		Removal: 		38.124923 s
+
+Singly Linked List: Random
+	Run 1:
+		Insertion: 	11.677214 ms
+		Search:		 	38.000000 ns
+		Removal: 		57.822215 s
+	Run 2:
+		Insertion: 	12.041400 ms
+		Search:		 	40.000000 ns
+		Removal: 		50.594360 s
+	Run 3:
+		Insertion: 	12.380824 ms
+		Search:		 	63.000000 ns
+		Removal: 		60.642814 s
+
+Binary Search Tree: Sorted
+	Run 1:
+		Insertion: 	38.296669 ms
+		Search:		 	36.000000 ns
+		Removal: 		34.273242 s
+	Run 2:
+		Insertion: 	11.474160 ms
+		Search:		 	36.000000 ns
+		Removal: 		69.020267 s
+	Run 3:
+		Insertion: 	11.691982 ms
+		Search:		 	36.000000 ns
+		Removal: 		41.579977 s
+
+Binary Search Tree: Random
+	Run 1:
+		Insertion: 	949.488489 ms
+		Search:		 	47.000000 ns
+		Removal: 		14.751593 ms
+	Run 2:
+		Insertion: 	1.199087 s
+		Search:		 	50.000000 ns
+		Removal: 		19.248335 ms
+	Run 3:
+		Insertion: 	1.173204 s
+		Search:		 	50.000000 ns
+		Removal: 		17.326979 ms
+
+Red-Black Tree: Sorted
+	Run 1:
+		Insertion: 	141.518560 ms
+		Search:		 	49.000000 ns
+		Removal: 		17.173000 μs
+	Run 2:
+		Insertion: 	43.287102 ms
+		Search:		 	26.000000 ns
+		Removal: 		13.871000 μs
+	Run 3:
+		Insertion: 	42.305436 ms
+		Search:		 	23.000000 ns
+		Removal: 		14.028000 μs
+
+Red-Black Tree: Random
+	Run 1:
+		Insertion: 	50.174893 ms
+		Search:		 	29.000000 ns
+		Removal: 		85.013000 μs
+	Run 2:
+		Insertion: 	49.830507 ms
+		Search:		 	27.000000 ns
+		Removal: 		81.372000 μs
+	Run 3:
+		Insertion: 	50.129701 ms
+		Search:		 	34.000000 ns
+		Removal: 		79.449000 μs
+
+Chained Hash Table: Sorted
+	Run 1:
+		Insertion: 	33.648847 ms
+		Search:		 	28.000000 ns
+		Removal: 		453.272000 μs
+	Run 2:
+		Insertion: 	12.228663 ms
+		Search:		 	28.000000 ns
+		Removal: 		509.569000 μs
+	Run 3:
+		Insertion: 	12.162420 ms
+		Search:		 	27.000000 ns
+		Removal: 		427.538000 μs
+
+Chained Hash Table: Random
+	Run 1:
+		Insertion: 	51.721940 ms
+		Search:		 	27.000000 ns
+		Removal: 		655.534000 μs
+	Run 2:
+		Insertion: 	151.090676 ms
+		Search:		 	37.000000 ns
+		Removal: 		872.648000 μs
+	Run 3:
+		Insertion: 	162.931050 ms
+		Search:		 	87.000000 ns
+		Removal: 		881.819000 μs
