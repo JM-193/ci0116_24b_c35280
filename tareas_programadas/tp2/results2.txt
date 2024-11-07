@@ -1,4 +1,3 @@
-
 Singly Linked List: Sorted
 	Run 1:
 		Insertion: 	41.349686 ms
