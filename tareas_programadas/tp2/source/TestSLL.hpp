@@ -11,9 +11,8 @@
 /// @param sll Singly Linked List to test
 /// @param random True if the values should be inserted randomly
 /// @param insertArr Array of values to insert
-/// @param resultStream Stream to write the results
 void testInsert(SLList<int>& sll, bool random,
-    std::array<int, insert_len>& insertArr, std::ostream*& resultStream) {
+    std::array<int, insert_len>& insertArr) {
   startTimer()
   if (random) {
     for (const auto& value : insertArr)
@@ -23,63 +22,57 @@ void testInsert(SLList<int>& sll, bool random,
       sll.insert(value);
   }
   endTimer()
-  *resultStream << "\t\tInsertion: \t" << getDuration(startTime, endTime)
+  std::cout << "\t\tInsertion: \t" << getDuration(startTime, endTime)
                 << std::endl;
 }
 
 /// @brief Test the insertion of values in the Singly Linked List
 /// @param sll Singly Linked List to test
 /// @param searchArr Array of values to search
-/// @param resultStream Stream to write the results
-void testSearch(SLList<int>& sll, std::array<int, search_len>& searchArr,
-    std::ostream*& resultStream) {
+void testSearch(SLList<int>& sll, std::array<int, search_len>& searchArr) {
   startTimer()
   for (const auto& value : searchArr) {
     sll.search(value);
   }
   endTimer()
-  *resultStream << "\t\tSearch: \t" << getDuration(startTime, endTime)
+  std::cout << "\t\tSearch: \t" << getDuration(startTime, endTime)
                 << std::endl;
 }
 
 /// @brief Test the removal of values in the Singly Linked List
 /// @param sll Singly Linked List to test
 /// @param removeArr Array of values to remove
-/// @param resultStream Stream to write the results
-void testRemove(SLList<int>& sll, std::array<int, remove_len>& removeArr,
-    std::ostream*& resultStream) {
+void testRemove(SLList<int>& sll, std::array<int, remove_len>& removeArr) {
   startTimer()
   for (const auto& value : removeArr) {
     sll.remove(value);
   }
   endTimer()
-  *resultStream << "\t\tRemoval: \t" << getDuration(startTime, endTime)
+  std::cout << "\t\tRemoval: \t" << getDuration(startTime, endTime)
                 << std::endl;
 }
 
 /// @brief Test the Singly Linked List with the given parameters
 /// @param random True if the data should be inserted randomly
-/// @param resultStream Stream to write the results
 /// @param insertArr Array of values to insert
 /// @param searchArr Array of values to search
 /// @param removeArr Array of values to remove
-void testSLL(bool random, std::ostream*& resultStream,
-    std::array<int, insert_len>& insertArr,
+void testSLL(bool random, std::array<int, insert_len>& insertArr,
     std::array<int, search_len>& searchArr,
     std::array<int, remove_len>& removeArr) {
   // Singly Linked List
   SLList<int>* sll = new SLList<int>();
 
   for (std::size_t i = 0; i < runs; ++i) {
-    *resultStream << "\tRun " << i + 1 << ":" << std::endl;
+    std::cout << "\tRun " << i + 1 << ":" << std::endl;
     // Insertion
-    testInsert(*sll, random, insertArr, resultStream);
+    testInsert(*sll, random, insertArr);
 
     // Search
-    testSearch(*sll, searchArr, resultStream);
+    testSearch(*sll, searchArr);
 
     // Removal
-    testRemove(*sll, removeArr, resultStream);
+    testRemove(*sll, removeArr);
 
     // Clear the list
     sll->clear();

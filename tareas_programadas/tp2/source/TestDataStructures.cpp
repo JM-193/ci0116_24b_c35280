@@ -25,36 +25,9 @@ void generateRandomArray(std::array<int, len>& arr) {
   }
 }
 
-/// @brief Get the result stream to write the results
-/// @param writeToFile True if the results should be written to a file
-/// @param resultStream Stream to write the results
-void getResultStream(bool writeToFile, std::ostream*& resultStream) {
-  if (writeToFile) {
-    // Open the file to write the results
-    std::ofstream resultsFile;
-    resultsFile.open("results.txt", std::ios::out);
-    if (!resultsFile.is_open()) {
-      std::cerr << "Error: Could not open the file to write the results, "
-                << "using standard output" << std::endl;
-      resultStream = &std::cout;
-      return;
-    }
-    // Assign the file stream to the result stream
-    resultStream = &resultsFile;
-  } else {
-    // Assign the standard output to the result stream
-    resultStream = &std::cout;
-  }
-}
-
 /// @brief Main functions
 /// @return EXIT_SUCCESS if the program ends successfully
 int main() {
-  // Want to write to results file or the standard output?
-  const bool writeToFile = false;
-  std::ostream* resultStream;
-  getResultStream(writeToFile, resultStream);
-
   // Random arrays to test the data structures
   std::array<int, insert_len> insertArr;
   generateRandomArray(insertArr);
@@ -64,36 +37,36 @@ int main() {
   generateRandomArray(removeArr);
 
   // SLL Sorted
-  *resultStream << "\nSingly Linked List: Sorted" << std::endl;
-  testSLL(/* random */ false, resultStream, insertArr, searchArr, removeArr);
+  std::cout << "\nSingly Linked List: Sorted" << std::endl;
+  testSLL(/* random */ false, insertArr, searchArr, removeArr);
 
   // SLL Random
-  *resultStream << "\nSingly Linked List: Random" << std::endl;
-  testSLL(/* random */ true, resultStream, insertArr, searchArr, removeArr);
+  std::cout << "\nSingly Linked List: Random" << std::endl;
+  testSLL(/* random */ true, insertArr, searchArr, removeArr);
 
   // BST Sorted
-  *resultStream << "\nBinary Search Tree: Sorted" << std::endl;
-  testBST(/* random */ false, resultStream, insertArr, searchArr, removeArr);
+  std::cout << "\nBinary Search Tree: Sorted" << std::endl;
+  testBST(/* random */ false, insertArr, searchArr, removeArr);
 
   // BST Random
-  *resultStream << "\nBinary Search Tree: Random" << std::endl;
-  testBST(/* random */ true, resultStream, insertArr, searchArr, removeArr);
+  std::cout << "\nBinary Search Tree: Random" << std::endl;
+  testBST(/* random */ true, insertArr, searchArr, removeArr);
 
   // RBT Sorted
-  *resultStream << "\nRed-Black Tree: Sorted" << std::endl;
-  testRBT(/* random */ false, resultStream, insertArr, searchArr, removeArr);
+  std::cout << "\nRed-Black Tree: Sorted" << std::endl;
+  testRBT(/* random */ false, insertArr, searchArr, removeArr);
 
   // RBT Random
-  *resultStream << "\nRed-Black Tree: Random" << std::endl;
-  testRBT(/* random */ true, resultStream, insertArr, searchArr, removeArr);
+  std::cout << "\nRed-Black Tree: Random" << std::endl;
+  testRBT(/* random */ true, insertArr, searchArr, removeArr);
 
   // CHT Sorted
-  *resultStream << "\nChained Hash Table: Sorted" << std::endl;
-  testCHT(/* random */ false, resultStream, insertArr, searchArr, removeArr);
+  std::cout << "\nChained Hash Table: Sorted" << std::endl;
+  testCHT(/* random */ false, insertArr, searchArr, removeArr);
 
   // CHT Random
-  *resultStream << "\nChained Hash Table: Random" << std::endl;
-  testCHT(/* random */ true, resultStream, insertArr, searchArr, removeArr);
+  std::cout << "\nChained Hash Table: Random" << std::endl;
+  testCHT(/* random */ true, insertArr, searchArr, removeArr);
 
   return EXIT_SUCCESS;
 }
