@@ -1,0 +1,5 @@
+@INCLUDE = ../../common/Doxyfile
+
+PROJECT_NAME = "Tarea Programada 3"
+
+PROJECT_BRIEF = "Entrega de la Tarea Programada 3"
